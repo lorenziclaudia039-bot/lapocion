@@ -2,372 +2,78 @@
 
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Poción</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fffaf5;
-      color: #3d2a1a;
-    }
-
-```
-.hero {
-  text-align: center;
-  padding: 56px 20px 40px;
-  background: linear-gradient(to bottom, #fff4e8, #fffaf5);
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: 44px;
-}
-
-.hero p {
-  margin-top: 12px;
-  font-size: 18px;
-  color: #6b4a34;
-}
-
-.hero .sub {
-  max-width: 760px;
-  margin: 18px auto 0;
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-.section {
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.section-title h2 {
-  margin: 0;
-  font-size: 30px;
-}
-
-.section-title p {
-  margin-top: 10px;
-  color: #6b4a34;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.card {
-  background: white;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
-
-.card img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  display: block;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-.card h3 {
-  margin: 0 0 8px;
-  font-size: 24px;
-}
-
-.price {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0 12px;
-}
-
-.desc {
-  color: #6b4a34;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.benefits {
-  background: #fff3e8;
-  border-radius: 14px;
-  padding: 12px;
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 16px;
-}
-
-.button {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  background: #3d2a1a;
-  color: white;
-  text-decoration: none;
-  padding: 14px;
-  border-radius: 12px;
-  font-weight: bold;
-}
-
-.builder {
-  background: #fff3e8;
-  border-radius: 24px;
-  padding: 28px;
-}
-
-.ingredients {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.ingredient {
-  background: white;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.ingredient strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 24px;
-}
-
-.info-box {
-  background: white;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-}
-
-.info-box h3 {
-  margin-top: 0;
-}
-
-.footer-box {
-  max-width: 1200px;
-  margin: 0 auto 40px;
-  background: #f3e8dc;
-  border-radius: 24px;
-  padding: 28px;
-}
-
-.footer-box h3 {
-  margin-bottom: 8px;
-}
-
-.footer-box p {
-  margin-top: 0;
-  line-height: 1.6;
-}
-
-.note {
-  font-size: 14px;
-  color: #6b4a34;
-  margin-top: 10px;
-}
-
-@media (max-width: 860px) {
-  .two-col {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 36px;
-  }
-}
-```
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Poción</title>
+<style>
+body { font-family: Arial; margin:0; background:#fffaf5; color:#3d2a1a; }
+.hero { text-align:center; padding:40px; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; padding:20px; }
+.card { background:white; border-radius:20px; padding:20px; box-shadow:0 5px 20px rgba(0,0,0,0.06); }
+.card img { width:100%; border-radius:15px; }
+.section { padding:30px; text-align:center; }
+button { background:#3d2a1a; color:white; padding:12px; border:none; border-radius:10px; width:100%; }
+</style>
 </head>
 <body>
 
-  <div class="hero">
-    <h1>La Poción</h1>
-    <p>La magia está en los ingredientes</p>
-    <p class="sub">
-      Jugos y shots frescos, funcionales y deliciosos. Diseñados para apoyar tu rutina,
-      tu energía y tu bienestar. También puedes crear tu propia mezcla según tus gustos.
-    </p>
-  </div>
+<div class="hero">
+<h1>La Poción</h1>
+<p>La magia está en los ingredientes</p>
+</div>
 
-  <div class="section">
-    <div class="section-title">
-      <h2>Jugos disponibles</h2>
-      <p>Nuestros favoritos de la casa, listos para ordenar.</p>
-    </div>
+<div class="section">
+<h2>Jugos disponibles</h2>
 
-```
 <div class="grid">
-  <div class="card">
-    <img src="TU-FOTO-VERDE" alt="Glow Verde" />
-    <div class="card-body">
-      <h3>Glow Verde</h3>
-      <div class="price">$7</div>
-      <div class="desc">
-        Mezcla refrescante de manzana, celery, pepino y limón.
-      </div>
-      <div class="benefits">
-        <strong>Beneficios:</strong>
-        Ligero, refrescante y excelente para empezar el día con una sensación limpia y fresca.
-      </div>
-      <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Glow%20Verde.">
-        Ordenar Glow Verde
-      </a>
-    </div>
-  </div>
 
-  <div class="card">
-    <img src="TU-FOTO-AMARILLA" alt="Golden Boost" />
-    <div class="card-body">
-      <h3>Golden Boost</h3>
-      <div class="price">$8</div>
-      <div class="desc">
-        Jengibre, piña, cúrcuma y naranja en una mezcla tropical intensa.
-      </div>
-      <div class="benefits">
-        <strong>Beneficios:</strong>
-        Ideal para apoyar energía natural, defensas y rutina de bienestar.
-      </div>
-      <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Golden%20Boost.">
-        Ordenar Golden Boost
-      </a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="TU-FOTO-ROJA" alt="Berry Power" />
-    <div class="card-body">
-      <h3>Berry Power</h3>
-      <div class="price">$8</div>
-      <div class="desc">
-        Remolacha, berries y zanahoria para una mezcla vibrante y deliciosa.
-      </div>
-      <div class="benefits">
-        <strong>Beneficios:</strong>
-        Rico en antioxidantes, revitalizante y perfecto para complementar días activos.
-      </div>
-      <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Berry%20Power.">
-        Ordenar Berry Power
-      </a>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="TU-FOTO-NARANJA" alt="Tropical" />
-    <div class="card-body">
-      <h3>Tropical</h3>
-      <div class="price">$7</div>
-      <div class="desc">
-        Mezcla frutal de sabor suave, jugoso y refrescante para cualquier momento del día.
-      </div>
-      <div class="benefits">
-        <strong>Beneficios:</strong>
-        Refrescante, agradable al paladar y perfecta para quienes prefieren sabores más dulces.
-      </div>
-      <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Tropical.">
-        Ordenar Tropical
-      </a>
-    </div>
-  </div>
+<div class="card">
+<img src="https://via.placeholder.com/400x500?text=Glow+Verde">
+<h3>Glow Verde</h3>
+<p>$7</p>
+<a href="https://wa.me/19398813322?text=Glow%20Verde">
+<button>Ordenar</button>
+</a>
 </div>
-```
 
-  </div>
-
-  <div class="section">
-    <div class="section-title">
-      <h2>Crea tu propio jugo</h2>
-      <p>Escoge los ingredientes que más te gusten y escríbenos por WhatsApp.</p>
-    </div>
-
-```
-<div class="two-col">
-  <div class="builder">
-    <h3>Ingredientes disponibles</h3>
-    <div class="ingredients">
-      <div class="ingredient">
-        <strong>Jengibre</strong>
-        Anti inflamatorio y con sabor intenso.
-      </div>
-      <div class="ingredient">
-        <strong>Limón</strong>
-        Refrescante y fuente de vitamina C.
-      </div>
-      <div class="ingredient">
-        <strong>Piña</strong>
-        Dulce, tropical y digestiva.
-      </div>
-      <div class="ingredient">
-        <strong>Manzana</strong>
-        Suave, fresca y fácil de combinar.
-      </div>
-      <div class="ingredient">
-        <strong>Zanahoria</strong>
-        Dulce natural y llena de color.
-      </div>
-      <div class="ingredient">
-        <strong>Remolacha</strong>
-        Intensa, vibrante y nutritiva.
-      </div>
-      <div class="ingredient">
-        <strong>Cúrcuma</strong>
-        Potente y funcional para el bienestar.
-      </div>
-      <div class="ingredient">
-        <strong>Pimienta</strong>
-        Complemento ideal en mezclas funcionales.
-      </div>
-    </div>
-
-    <p class="note">
-      Para crear tu jugo personalizado, escríbenos por WhatsApp con los ingredientes que deseas.
-    </p>
-
-    <a class="button" style="margin-top:16px;" href="https://wa.me/19398813322?text=Hola,%20quiero%20crear%20mi%20propio%20jugo%20con%20estos%20ingredientes:">
-      Crear mi jugo por WhatsApp
-    </a>
-  </div>
-
-  <div class="info-box">
-    <h3>¿Cómo ordenar?</h3>
-    <p>1. Escoge tu jugo favorito o crea tu propia mezcla.</p>
-    <p>2. Realiza el pago por ATH Móvil.</p>
-    <p>3. Envía tu comprobante por WhatsApp.</p>
-    <p>4. Coordina envío o recogido.</p>
-
-    <h3>Pago</h3>
-    <p>ATH Móvil: <strong>(939) 881-3322</strong></p>
-    <p class="note">Paga y envía tu comprobante por WhatsApp para confirmar tu orden.</p>
-
-    <h3>Entrega</h3>
-    <p>📍 Recogido: Montehiedra Mall, San Juan</p>
-    <p>📦 Envíos disponibles por correo (48–72h)</p>
-  </div>
+<div class="card">
+<img src="https://via.placeholder.com/400x500?text=Golden+Boost">
+<h3>Golden Boost</h3>
+<p>$8</p>
+<a href="https://wa.me/19398813322?text=Golden%20Boost">
+<button>Ordenar</button>
+</a>
 </div>
-```
 
-  </div>
+<div class="card">
+<img src="https://via.placeholder.com/400x500?text=Berry+Power">
+<h3>Berry Power</h3>
+<p>$8</p>
+<a href="https://wa.me/19398813322?text=Berry%20Power">
+<button>Ordenar</button>
+</a>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/400x500?text=Tropical">
+<h3>Tropical</h3>
+<p>$7</p>
+<a href="https://wa.me/19398813322?text=Tropical">
+<button>Ordenar</button>
+</a>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Pago</h2>
+<p>ATH Móvil: (939) 881-3322</p>
+
+<h2>Entrega</h2>
+<p>Recogido en Montehiedra Mall</p>
+<p>Envíos disponibles</p>
+</div>
 
 </body>
 </html>
