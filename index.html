@@ -6,7 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Poción</title>
   <style>
-    * { box-sizing: border-box; }
+    .whatsapp-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-weight: bold;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  z-index: 9999;
+  font-size: 15px;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px);
+}
 
 ```
 body {
@@ -477,6 +494,9 @@ body {
     <h3>Hecho para sentirse bien</h3>
     <p>La Poción nace para ofrecer una experiencia rica, funcional y personalizada. Ordena tu favorito o crea una mezcla hecha a tu gusto.</p>
   </section>
-
+<a class="whatsapp-float"
+href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20jugo%20de%20La%20Poci%C3%B3n.">
+  Haz tu pedido
+</a>
 </body>
 </html>
