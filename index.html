@@ -64,6 +64,9 @@
       border-radius: 14px;
       font-weight: bold;
       text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
     }
 
     .btn,
@@ -95,6 +98,7 @@
       border-radius: 20px;
       padding: 20px;
       text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
 
     .section {
@@ -120,6 +124,7 @@
       max-width: 740px;
       line-height: 1.7;
       color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.25);
     }
 
     .grid {
@@ -132,12 +137,14 @@
       background: rgba(255,255,255,0.95);
       border-radius: 24px;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
     .card img {
       width: 100%;
       height: 300px;
       object-fit: cover;
+      display: block;
     }
 
     .card-body {
@@ -146,20 +153,71 @@
 
     .card h3 {
       margin: 0 0 8px;
+      font-size: 24px;
     }
 
     .price {
       font-weight: bold;
       margin-bottom: 10px;
+      font-size: 20px;
     }
 
     .desc {
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+      color: #6d4d38;
+      line-height: 1.6;
     }
 
     .button {
       display: block;
       margin-top: 10px;
+      width: 100%;
+    }
+
+    .builder-box {
+      background: rgba(255,255,255,0.95);
+      padding: 24px;
+      border-radius: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .ingredients {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .ingredients label {
+      background: #fff4ea;
+      padding: 12px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #3d2a1a;
+      line-height: 1.4;
+    }
+
+    .ingredients input {
+      margin-right: 8px;
+    }
+
+    .custom-textarea {
+      width: 100%;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #ddd;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .builder-button-wrap {
+      margin-top: 18px;
+      text-align: center;
     }
 
     .whatsapp-float {
@@ -171,13 +229,25 @@
       padding: 14px 18px;
       border-radius: 999px;
       text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+
+    @media (max-width: 860px) {
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HERO -->
   <section class="hero">
     <img class="logo" src="./logo.png" alt="La Poción logo" />
     <h1>Jugos que se sienten bien</h1>
@@ -186,12 +256,11 @@
     </p>
 
     <div class="hero-buttons">
-      <a class="btn" href="#">Ordenar por WhatsApp</a>
-      <a class="btn-outline" href="#">Crear mi propio jugo</a>
+      <a class="btn" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20jugo%20de%20La%20Poci%C3%B3n.">Ordenar por WhatsApp</a>
+      <a class="btn-outline" href="#crear-jugo">Crear mi propio jugo</a>
     </div>
   </section>
 
-  <!-- BENEFICIOS -->
   <section class="feature-strip">
     <div class="feature-grid">
       <div class="feature-box">Ingredientes frescos</div>
@@ -201,91 +270,125 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS -->
   <section class="section">
     <div class="section-title">
       <h2>Jugos disponibles</h2>
+      <p>Nuestros favoritos de la casa.</p>
     </div>
 
     <div class="grid">
-
       <div class="card">
-        <img src="./glow-verde.png">
+        <img src="./glow-verde.png" alt="Glow Verde" />
         <div class="card-body">
           <h3>Glow Verde</h3>
           <div class="price">$7</div>
-          <div class="desc">Refrescante y ligero</div>
-          <a class="button" href="#">Ordenar</a>
+          <div class="desc">Refrescante y ligero.</div>
+          <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Glow%20Verde.">Ordenar</a>
         </div>
       </div>
 
       <div class="card">
-        <img src="./golden-boost.png">
+        <img src="./golden-boost.png" alt="Golden Boost" />
         <div class="card-body">
           <h3>Golden Boost</h3>
           <div class="price">$8</div>
-          <div class="desc">Energía natural</div>
-          <a class="button" href="#">Ordenar</a>
+          <div class="desc">Energía natural.</div>
+          <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Golden%20Boost.">Ordenar</a>
         </div>
       </div>
 
       <div class="card">
-        <img src="./berry-power.png">
+        <img src="./berry-power.png" alt="Berry Power" />
         <div class="card-body">
           <h3>Berry Power</h3>
           <div class="price">$8</div>
-          <div class="desc">Antioxidantes</div>
-          <a class="button" href="#">Ordenar</a>
+          <div class="desc">Antioxidantes.</div>
+          <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Berry%20Power.">Ordenar</a>
         </div>
       </div>
 
       <div class="card">
-        <img src="./tropical.png">
+        <img src="./tropical.png" alt="Tropical" />
         <div class="card-body">
           <h3>Tropical</h3>
           <div class="price">$7</div>
-          <div class="desc">Suave y refrescante</div>
-          <a class="button" href="#">Ordenar</a>
+          <div class="desc">Suave y refrescante.</div>
+          <a class="button" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20Tropical.">Ordenar</a>
         </div>
       </div>
-
     </div>
   </section>
 
-  <section class="section">
-  <div class="section-title">
-    <h2>Crea tu propio jugo</h2>
-    <p>Escoge tus ingredientes y envíanos tu mezcla por WhatsApp</p>
-  </div>
-
-  <div class="builder-box">
-
-    <div class="ingredients">
-
-      <label><input type="checkbox" value="Manzana verde"> Manzana verde</label>
-      <label><input type="checkbox" value="Manzana roja"> Manzana roja</label>
-      <label><input type="checkbox" value="Piña"> Piña</label>
-      <label><input type="checkbox" value="Jengibre"> Jengibre</label>
-      <label><input type="checkbox" value="Cúrcuma"> Cúrcuma</label>
-      <label><input type="checkbox" value="Guineo"> Guineo</label>
-      <label><input type="checkbox" value="Zanahoria"> Zanahoria</label>
-      <label><input type="checkbox" value="Celery"> Celery</label>
-      <label><input type="checkbox" value="Ciruela"> Ciruela</label>
-      <label><input type="checkbox" value="Remolacha"> Remolacha</label>
-      <label><input type="checkbox" value="Espinaca"> Espinaca</label>
-
+  <section class="section" id="crear-jugo">
+    <div class="section-title">
+      <h2>Crea tu propio jugo</h2>
+      <p>Escoge tus ingredientes favoritos y añade cualquier otra idea en notas.</p>
     </div>
 
-    <textarea id="extra" placeholder="Otros ingredientes o notas..." style="width:100%; margin-top:15px; padding:10px; border-radius:10px;"></textarea>
+    <div class="builder-box">
+      <div class="ingredients">
+        <label><input type="checkbox" value="Manzana verde"> Manzana verde</label>
+        <label><input type="checkbox" value="Manzana roja"> Manzana roja</label>
+        <label><input type="checkbox" value="Piña"> Piña</label>
+        <label><input type="checkbox" value="Jengibre"> Jengibre</label>
+        <label><input type="checkbox" value="Cúrcuma"> Cúrcuma</label>
+        <label><input type="checkbox" value="Guineo"> Guineo</label>
+        <label><input type="checkbox" value="Zanahoria"> Zanahoria</label>
+        <label><input type="checkbox" value="Celery"> Celery</label>
+        <label><input type="checkbox" value="Ciruela"> Ciruela</label>
+        <label><input type="checkbox" value="Remolacha"> Remolacha</label>
+        <label><input type="checkbox" value="Espinaca"> Espinaca</label>
+        <label><input type="checkbox" value="Pepino"> Pepino</label>
+        <label><input type="checkbox" value="Limón"> Limón</label>
+        <label><input type="checkbox" value="Naranja"> Naranja</label>
+        <label><input type="checkbox" value="Fresas"> Fresas</label>
+        <label><input type="checkbox" value="Mango"> Mango</label>
+      </div>
 
-    <button class="button" onclick="enviarWhatsApp()" style="margin-top:15px;">
-      Crear mi jugo
-    </button>
+      <textarea
+        id="extraIngredientes"
+        class="custom-textarea"
+        placeholder="Otras opciones, combinaciones o notas especiales..."
+      ></textarea>
 
-  </div>
-</section>
-  <!-- BOTÓN FLOAT -->
-  <a class="whatsapp-float" href="#">Ordenar</a>
+      <div class="builder-button-wrap">
+        <button class="button" onclick="enviarJugoPersonalizado()">Crear mi jugo por WhatsApp</button>
+      </div>
+    </div>
+  </section>
+
+  <a class="whatsapp-float" href="https://wa.me/19398813322?text=Hola,%20quiero%20ordenar%20un%20jugo%20de%20La%20Poci%C3%B3n.">Ordenar</a>
+
+  <script>
+    function enviarJugoPersonalizado() {
+      const seleccionados = document.querySelectorAll('.ingredients input[type="checkbox"]:checked');
+      const extra = document.getElementById('extraIngredientes').value.trim();
+
+      let lista = [];
+      seleccionados.forEach(item => {
+        lista.push(item.value);
+      });
+
+      let mensaje = "Hola, quiero crear mi propio jugo.\n\n";
+
+      if (lista.length > 0) {
+        mensaje += "Ingredientes seleccionados:\n- " + lista.join("\n- ") + "\n\n";
+      }
+
+      if (extra !== "") {
+        mensaje += "Otras opciones o notas:\n" + extra + "\n\n";
+      }
+
+      if (lista.length === 0 && extra === "") {
+        mensaje += "Quiero orientación para crear mi mezcla ideal.\n\n";
+      }
+
+      mensaje += "Gracias.";
+
+      const url = "https://wa.me/19398813322?text=" + encodeURIComponent(mensaje);
+      window.open(url, "_blank");
+    }
+  </script>
 
 </body>
 </html>
