@@ -13,13 +13,15 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(
-        rgba(0, 0, 0, 0.3),
-        rgba(0, 0, 0, 0.3)
-      ), url('images/background.jpg');
+      background-image: linear-gradient(
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0.25)
+      ),
+      url('images/background.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed;
       color: #333;
     }
 
@@ -27,6 +29,7 @@
       text-align: center;
       padding: 80px 20px 40px;
       color: white;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
 
     .hero h1 {
@@ -38,20 +41,24 @@
       font-size: 18px;
     }
 
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
     .products {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      padding: 40px 20px;
     }
 
     .product {
-      background: white;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
       border-radius: 20px;
       padding: 20px;
       width: 250px;
-      text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
 
@@ -77,39 +84,93 @@
       border-radius: 20px;
       text-decoration: none;
     }
+
+    .info-box {
+      background: rgba(255,255,255,0.9);
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- HERO -->
   <section class="hero">
     <h1>La Poción</h1>
     <p>La magia está en los ingredientes ✨</p>
   </section>
 
-  <section class="products">
+  <!-- PRODUCTOS -->
+  <section class="section">
+    <h2>Jugos disponibles</h2>
 
-    <div class="product">
-      <img src="images/product1.jpg" alt="Producto 1">
-      <h3>Box 4 Shots</h3>
-      <p>$20</p>
-      <a href="#" class="btn">Comprar</a>
+    <div class="products">
+
+      <div class="product">
+        <img src="images/product1.jpg">
+        <h3>Shot Verde</h3>
+        <p>$5</p>
+      </div>
+
+      <div class="product">
+        <img src="images/product2.jpg">
+        <h3>Shot Naranja</h3>
+        <p>$5</p>
+      </div>
+
+      <div class="product">
+        <img src="images/product3.jpg">
+        <h3>Shot Rojo</h3>
+        <p>$5</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CAJAS -->
+  <section class="section">
+    <h2>Cajas</h2>
+
+    <div class="products">
+
+      <div class="product">
+        <h3>Box 4</h3>
+        <p>$20</p>
+      </div>
+
+      <div class="product">
+        <h3>Box 7</h3>
+        <p>$35</p>
+      </div>
+
+      <div class="product">
+        <h3>Box 14</h3>
+        <p>$60</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPRA -->
+  <section class="section">
+    <div class="info-box">
+      <h3>Ordena por WhatsApp</h3>
+      <a class="btn" href="#">Ordenar ahora</a>
     </div>
 
-    <div class="product">
-      <img src="images/product2.jpg" alt="Producto 2">
-      <h3>Box 7 Shots</h3>
-      <p>$35</p>
-      <a href="#" class="btn">Comprar</a>
+    <div class="info-box">
+      <h3>Pago</h3>
+      <p>ATH Móvil disponible</p>
     </div>
 
-    <div class="product">
-      <img src="images/product3.jpg" alt="Producto 3">
-      <h3>Box 14 Shots</h3>
-      <p>$60</p>
-      <a href="#" class="btn">Comprar</a>
+    <div class="info-box">
+      <h3>Entrega</h3>
+      <p>📍 Montehiedra Mall (martes)</p>
+      <p>📦 Envíos 48–72 horas</p>
     </div>
-
   </section>
 
 </body>
