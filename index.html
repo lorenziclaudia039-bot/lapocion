@@ -224,6 +224,12 @@
       gap: 18px;
     }
 
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
     .form-group label {
       display: block;
       font-size: 0.95rem;
@@ -365,6 +371,10 @@
         grid-template-columns: 1fr;
       }
 
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
       .custom-buttons {
         flex-direction: column;
         align-items: stretch;
@@ -490,19 +500,45 @@
 
         <div class="custom-form-wrap">
           <form id="customJuiceForm" class="custom-form-grid">
-            <div class="form-group">
-              <label for="nombre">Tu nombre</label>
-              <input type="text" id="nombre" placeholder="Escribe tu nombre" />
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Tu nombre</label>
+                <input type="text" id="nombre" placeholder="Escribe tu nombre" />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Tu teléfono</label>
+                <input type="text" id="telefono" placeholder="Ej. 787-000-0000" />
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="tamano">Tamaño</label>
-              <select id="tamano">
-                <option value="">Selecciona un tamaño</option>
-                <option value="12 oz">12 oz</option>
-                <option value="16 oz">16 oz</option>
-                <option value="Shot">Shot</option>
-              </select>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tamano">Tamaño</label>
+                <select id="tamano">
+                  <option value="">Selecciona un tamaño</option>
+                  <option value="12 oz">12 oz</option>
+                  <option value="16 oz">16 oz</option>
+                  <option value="Shot">Shot</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <select id="cantidad">
+                  <option value="">Selecciona cantidad</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10+">10+</option>
+                </select>
+              </div>
             </div>
 
             <div class="form-group">
@@ -532,9 +568,37 @@
               <input type="text" id="extraIngredient" placeholder="Ej. pera, kiwi, avena..." />
             </div>
 
+            <div class="form-row">
+              <div class="form-group">
+                <label for="entregaTipo">Método de entrega</label>
+                <select id="entregaTipo">
+                  <option value="">Selecciona una opción</option>
+                  <option value="Pickup">Pickup</option>
+                  <option value="Delivery">Delivery</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fechaEntrega">Fecha de entrega</label>
+                <input type="date" id="fechaEntrega" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="horaEntrega">Hora aproximada</label>
+                <input type="time" id="horaEntrega" />
+              </div>
+
+              <div class="form-group">
+                <label for="lugarEntrega">Lugar de pickup o dirección</label>
+                <input type="text" id="lugarEntrega" placeholder="Ej. Montehiedra Mall o dirección de entrega" />
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="notas">Notas adicionales</label>
-              <textarea id="notas" rows="4" placeholder="Ej. sin jengibre, más piña, poco dulce, para entrega el viernes..."></textarea>
+              <textarea id="notas" rows="4" placeholder="Ej. sin jengibre, más piña, poco dulce, tocar bocina al llegar..."></textarea>
             </div>
 
             <div class="custom-buttons">
@@ -576,8 +640,14 @@
       const numeroWhatsApp = "17874226548";
 
       const nombre = document.getElementById("nombre").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
       const tamano = document.getElementById("tamano").value;
+      const cantidad = document.getElementById("cantidad").value;
       const extraIngredient = document.getElementById("extraIngredient").value.trim();
+      const entregaTipo = document.getElementById("entregaTipo").value;
+      const fechaEntrega = document.getElementById("fechaEntrega").value;
+      const horaEntrega = document.getElementById("horaEntrega").value;
+      const lugarEntrega = document.getElementById("lugarEntrega").value.trim();
       const notas = document.getElementById("notas").value.trim();
 
       const ingredientesSeleccionados = Array.from(
@@ -594,14 +664,30 @@
         return;
       }
 
+      if (!cantidad) {
+        alert("Por favor, selecciona la cantidad.");
+        return;
+      }
+
       if (ingredientesSeleccionados.length === 0 && !extraIngredient) {
         alert("Por favor, selecciona al menos un ingrediente o añade otro ingrediente.");
         return;
       }
 
+      if (!entregaTipo) {
+        alert("Por favor, selecciona método de entrega.");
+        return;
+      }
+
       let mensaje = "Hola, quiero crear mi propio jugo en La Poción.%0A%0A";
       mensaje += "*Nombre:* " + nombre + "%0A";
+
+      if (telefono) {
+        mensaje += "*Teléfono:* " + telefono + "%0A";
+      }
+
       mensaje += "*Tamaño:* " + tamano + "%0A";
+      mensaje += "*Cantidad:* " + cantidad + "%0A";
 
       if (ingredientesSeleccionados.length > 0) {
         mensaje += "*Ingredientes seleccionados:* " + ingredientesSeleccionados.join(", ") + "%0A";
@@ -609,6 +695,20 @@
 
       if (extraIngredient) {
         mensaje += "*Otro ingrediente:* " + extraIngredient + "%0A";
+      }
+
+      mensaje += "*Método de entrega:* " + entregaTipo + "%0A";
+
+      if (fechaEntrega) {
+        mensaje += "*Fecha de entrega:* " + fechaEntrega + "%0A";
+      }
+
+      if (horaEntrega) {
+        mensaje += "*Hora aproximada:* " + horaEntrega + "%0A";
+      }
+
+      if (lugarEntrega) {
+        mensaje += "*Lugar de pickup / dirección:* " + lugarEntrega + "%0A";
       }
 
       if (notas) {
