@@ -1,217 +1,918 @@
-<script>
-  function actualizarEntrega() {
-    const entregaTipo = document.getElementById("entregaTipo").value;
-    const deliveryInfoBox = document.getElementById("deliveryInfoBox");
-    const deliveryLabel = document.getElementById("deliveryLabel");
-    const lugarEntrega = document.getElementById("lugarEntrega");
-    const deliveryHelpText = document.getElementById("deliveryHelpText");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Poción</title>
 
-    if (!entregaTipo) {
-      deliveryInfoBox.style.display = "none";
-      lugarEntrega.value = "";
-      lugarEntrega.placeholder = "";
-      deliveryHelpText.textContent = "";
-      return;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    deliveryInfoBox.style.display = "block";
-
-    if (entregaTipo === "Pickup en Montehiedra Mall") {
-      deliveryLabel.textContent = "Punto de entrega";
-      lugarEntrega.value = "Montehiedra Mall";
-      lugarEntrega.placeholder = "Montehiedra Mall";
-      deliveryHelpText.textContent = "Las entregas en pickup serán los lunes de 3:00 p.m. a 6:00 p.m. en Montehiedra Mall.";
-    } else if (entregaTipo === "Envío por correo") {
-      deliveryLabel.textContent = "Dirección de envío";
-      lugarEntrega.value = "";
-      lugarEntrega.placeholder = "Escribe tu dirección completa";
-      deliveryHelpText.textContent = "Los envíos por correo tardan aproximadamente de 48 a 72 horas.";
-    }
-  }
-
-  function calcularPrecioEstimado() {
-    const tamano = document.getElementById("tamano").value;
-    const cantidad = document.getElementById("cantidad").value;
-    const precioEstimado = document.getElementById("precioEstimado");
-
-    const precios = {
-      "12 oz": 7,
-      "16 oz": 9,
-      "Shot": 4
-    };
-
-    if (!tamano || !cantidad) {
-      precioEstimado.textContent = "Selecciona tamaño y cantidad";
-      return "";
+    body {
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.75), transparent 35%),
+        linear-gradient(to bottom, #fdf8f5 0%, #f6efe8 28%, #eef5ee 65%, #e7f0e8 100%);
+      color: #3b3b3b;
+      line-height: 1.5;
     }
 
-    if (cantidad === "10+") {
-      precioEstimado.textContent = "Cotización especial";
-      return "Cotización especial";
+    main {
+      width: 100%;
     }
 
-    const cantidadNumero = parseInt(cantidad, 10);
-    const precioUnitario = precios[tamano];
-
-    if (!precioUnitario || !cantidadNumero) {
-      precioEstimado.textContent = "Selecciona tamaño y cantidad";
-      return "";
+    section {
+      padding: 60px 20px;
     }
 
-    const total = precioUnitario * cantidadNumero;
-    const totalFormateado = "$" + total.toFixed(2);
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
 
-    precioEstimado.textContent = totalFormateado;
-    return totalFormateado;
-  }
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
 
-  function resetEntrega() {
-    setTimeout(() => {
-      const form = document.getElementById("customJuiceForm");
+    h1 {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      color: #5a4d4d;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #58715f;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.12rem;
+      margin-bottom: 6px;
+      color: #5f5551;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #6b6763;
+    }
+
+    .section-subtitle {
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: #7a746e;
+      text-align: center;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 85px 20px 70px;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35), transparent 22%),
+                  radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22), transparent 18%);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 10px 18px rgba(100, 120, 100, 0.12));
+    }
+
+    .hero h1 {
+      text-shadow: 0 2px 10px rgba(255,255,255,0.45);
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* GRID */
+    .products-grid,
+    .boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    /* CARDS */
+    .product-card,
+    .box-card {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(196, 211, 198, 0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 26px 20px 24px;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(110, 130, 115, 0.10);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .product-card:hover,
+    .box-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(110, 130, 115, 0.15);
+    }
+
+    .product-card img,
+    .box-card img {
+      width: 100%;
+      max-width: 112px;
+      height: auto;
+      display: block;
+      margin: 0 auto 16px;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #7d9b7f;
+      margin-bottom: 8px;
+    }
+
+    .product-card p:last-of-type,
+    .box-card p:last-of-type {
+      font-size: 0.95rem;
+      min-height: 44px;
+    }
+
+    /* BUTTONS */
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8cab8d, #739276);
+      color: white;
+      box-shadow: 0 10px 20px rgba(123, 154, 126, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #7fa182, #68886c);
+    }
+
+    .btn-secondary {
+      background: #f4eee8;
+      color: #5f5954;
+      margin-top: 12px;
+      border: 1px solid rgba(199, 188, 180, 0.45);
+    }
+
+    .btn-secondary:hover {
+      background: #efe6df;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #739276;
+      border: 1px solid #739276;
+    }
+
+    .btn-outline:hover {
+      background: rgba(115, 146, 118, 0.08);
+    }
+
+    /* CUSTOM JUICE */
+    .custom-section {
+      text-align: center;
+    }
+
+    .custom-form-wrap {
+      max-width: 900px;
+      margin: 30px auto 0;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(196, 211, 198, 0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: 0 14px 30px rgba(110, 130, 115, 0.10);
+      text-align: left;
+    }
+
+    .custom-form-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #5f5551;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(196, 211, 198, 0.85);
+      background: rgba(255,255,255,0.92);
+      font-size: 0.96rem;
+      color: #4f4a46;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #8cab8d;
+      box-shadow: 0 0 0 3px rgba(140, 171, 141, 0.12);
+    }
+
+    .ingredients-checklist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .ingredient-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(202, 214, 203, 0.65);
+      color: #617262;
+      padding: 12px 14px;
+      border-radius: 18px;
+      font-size: 0.93rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .ingredient-option input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #7d9b7f;
+      flex-shrink: 0;
+    }
+
+    .price-estimate-box {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(202, 214, 203, 0.65);
+      border-radius: 22px;
+      padding: 18px 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      text-align: center;
+    }
+
+    .price-estimate-label {
+      font-size: 0.92rem;
+      color: #7a746e;
+      margin-bottom: 6px;
+    }
+
+    .price-estimate-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #739276;
+      margin-bottom: 6px;
+    }
+
+    .price-estimate-note {
+      font-size: 0.88rem;
+      color: #8a847d;
+    }
+
+    .custom-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .form-note {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: #7a746e;
+    }
+
+    .delivery-help-text {
+      margin-top: 8px;
+      font-size: 0.92rem;
+      color: #7a746e;
+    }
+
+    /* FINAL CTA */
+    .final-cta-wrap {
+      padding-top: 10px;
+      padding-bottom: 85px;
+    }
+
+    .final-cta {
+      max-width: 920px;
+      margin: 0 auto;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04)),
+        linear-gradient(135deg, #8ba98a, #6f8f79, #90a997);
+      color: white;
+      border-radius: 34px;
+      text-align: center;
+      padding: 52px 24px;
+      box-shadow: 0 20px 40px rgba(107, 137, 112, 0.22);
+    }
+
+    .final-cta h2 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .final-cta p {
+      color: rgba(255,255,255,0.92);
+      max-width: 540px;
+      margin: 0 auto 20px;
+    }
+
+    .final-cta .btn-primary {
+      background: #fff7f2;
+      color: #6d8a72;
+      box-shadow: none;
+    }
+
+    .final-cta .btn-primary:hover {
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 50px 18px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.65rem;
+      }
+
+      .product-card,
+      .box-card {
+        padding: 22px 18px;
+      }
+
+      .product-card img,
+      .box-card img {
+        max-width: 98px;
+      }
+
+      .custom-form-wrap {
+        padding: 22px 16px;
+      }
+
+      .ingredients-checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .custom-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .custom-buttons .btn-primary,
+      .custom-buttons .btn-outline {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <img src="logo.png" alt="La Poción logo" class="logo" />
+        <h1>Jugos que se sienten bien</h1>
+        <p>
+          La magia está en los ingredientes. Jugos frescos, funcionales y hechos para acompañar tu bienestar de una forma rica, delicada y especial.
+        </p>
+      </div>
+    </section>
+
+    <!-- NUESTROS FAVORITOS -->
+    <section id="jugos" class="products-section">
+      <div class="container">
+        <h2>Nuestros favoritos</h2>
+        <p class="section-subtitle">
+          Los favoritos de la casa, pensados para sentirte bien y disfrutar cada sorbo con un toque natural.
+        </p>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <img src="glow-verde.png" alt="Glow Verde" />
+            <h3>Glow Verde</h3>
+            <p class="price">$7</p>
+            <p>Refrescante, ligero y perfecto para comenzar el día.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20Glow%20Verde" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="product-card">
+            <img src="golden-boost.png" alt="Golden Boost" />
+            <h3>Golden Boost</h3>
+            <p class="price">$8</p>
+            <p>Energía natural con un toque vibrante y delicioso.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20Golden%20Boost" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="product-card">
+            <img src="berry-power.png" alt="Berry Power" />
+            <h3>Berry Power</h3>
+            <p class="price">$8</p>
+            <p>Una mezcla llena de color, sabor y antioxidantes.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20Berry%20Power" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="product-card">
+            <img src="tropical.png" alt="Tropical" />
+            <h3>Tropical</h3>
+            <p class="price">$7</p>
+            <p>Suave, refrescante y con ese mood tropical que encanta.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20Tropical" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAJAS -->
+    <section id="cajas" class="boxes-section">
+      <div class="container">
+        <h2>Elige tu ritual</h2>
+        <p class="section-subtitle">
+          Escoge la opción que mejor vaya contigo, tu rutina y tus momentos de bienestar.
+        </p>
+
+        <div class="boxes-grid">
+          <div class="box-card">
+            <img src="kit-descubrimiento.png" alt="Kit Descubrimiento" />
+            <h3>Kit Descubrimiento</h3>
+            <p class="price">4 jugos</p>
+            <p>Ideal para probar sabores y descubrir tus favoritos.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Kit%20Descubrimiento" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="box-card">
+            <img src="ritual-semanal.png" alt="Ritual Semanal" />
+            <h3>Ritual Semanal</h3>
+            <p class="price">7 jugos</p>
+            <p>Perfecto para acompañarte durante toda la semana.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Ritual%20Semanal" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="box-card">
+            <img src="ritual-profundo.png" alt="Ritual Profundo" />
+            <h3>Ritual Profundo</h3>
+            <p class="price">14 jugos</p>
+            <p>Una opción más completa para mantener tu rutina activa.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Ritual%20Profundo" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+
+          <div class="box-card">
+            <img src="transformacion-total.png" alt="Transformación Total" />
+            <h3>Transformación Total</h3>
+            <p class="price">30 jugos</p>
+            <p>Tu ritual completo para disfrutar La Poción por más tiempo.</p>
+            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20la%20Transformaci%C3%B3n%20Total" target="_blank" class="btn-secondary">Ordenar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREA TU PROPIO JUGO -->
+    <section id="custom-juice" class="custom-section">
+      <div class="container">
+        <h2>Crea tu propio jugo</h2>
+        <p class="section-subtitle">
+          Escoge tus ingredientes favoritos, selecciona tu método de entrega y envíanos tu orden directamente por WhatsApp.
+        </p>
+
+        <div class="custom-form-wrap">
+          <form id="customJuiceForm" class="custom-form-grid">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Tu nombre</label>
+                <input type="text" id="nombre" placeholder="Escribe tu nombre" />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Tu teléfono</label>
+                <input type="text" id="telefono" placeholder="Ej. 787-000-0000" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tamano">Tamaño</label>
+                <select id="tamano">
+                  <option value="">Selecciona un tamaño</option>
+                  <option value="12 oz">12 oz</option>
+                  <option value="16 oz">16 oz</option>
+                  <option value="Shot">Shot</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <select id="cantidad">
+                  <option value="">Selecciona cantidad</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10+">10+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="price-estimate-box">
+                <p class="price-estimate-label">Precio estimado</p>
+                <p class="price-estimate-value" id="precioEstimado">Selecciona tamaño, cantidad y método de entrega</p>
+                <p class="price-estimate-note">Este precio es una referencia y puede variar según ingredientes o solicitudes especiales.</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Ingredientes</label>
+              <div class="ingredients-checklist">
+                <label class="ingredient-option"><input type="checkbox" value="Manzana verde" /> Manzana verde</label>
+                <label class="ingredient-option"><input type="checkbox" value="Manzana roja" /> Manzana roja</label>
+                <label class="ingredient-option"><input type="checkbox" value="Piña" /> Piña</label>
+                <label class="ingredient-option"><input type="checkbox" value="Jengibre" /> Jengibre</label>
+                <label class="ingredient-option"><input type="checkbox" value="Cúrcuma" /> Cúrcuma</label>
+                <label class="ingredient-option"><input type="checkbox" value="Zanahoria" /> Zanahoria</label>
+                <label class="ingredient-option"><input type="checkbox" value="Remolacha" /> Remolacha</label>
+                <label class="ingredient-option"><input type="checkbox" value="Espinaca" /> Espinaca</label>
+                <label class="ingredient-option"><input type="checkbox" value="Fresas" /> Fresas</label>
+                <label class="ingredient-option"><input type="checkbox" value="Mango" /> Mango</label>
+                <label class="ingredient-option"><input type="checkbox" value="Celery" /> Celery</label>
+                <label class="ingredient-option"><input type="checkbox" value="Guineo" /> Guineo</label>
+                <label class="ingredient-option"><input type="checkbox" value="Limón" /> Limón</label>
+                <label class="ingredient-option"><input type="checkbox" value="China" /> China</label>
+                <label class="ingredient-option"><input type="checkbox" value="Apio" /> Apio</label>
+                <label class="ingredient-option"><input type="checkbox" value="Pepino" /> Pepino</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="extraIngredient">Otro ingrediente</label>
+              <input type="text" id="extraIngredient" placeholder="Ej. pera, kiwi, avena..." />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="entregaTipo">Método de entrega</label>
+                <select id="entregaTipo" onchange="actualizarEntrega(); calcularPrecioEstimado();">
+                  <option value="">Selecciona una opción</option>
+                  <option value="Pickup en Montehiedra Mall">Pickup en Montehiedra Mall</option>
+                  <option value="Envío por correo">Envío por correo</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="fechaEntrega">Fecha deseada</label>
+                <input type="date" id="fechaEntrega" />
+              </div>
+            </div>
+
+            <div class="form-group" id="deliveryInfoBox" style="display:none;">
+              <label id="deliveryLabel" for="lugarEntrega">Punto de entrega</label>
+              <input type="text" id="lugarEntrega" placeholder="" />
+              <p id="deliveryHelpText" class="delivery-help-text"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="notas">Notas adicionales</label>
+              <textarea id="notas" rows="4" placeholder="Ej. sin jengibre, más piña, poco dulce, tocar bocina al llegar..."></textarea>
+            </div>
+
+            <div class="custom-buttons">
+              <button type="button" class="btn-primary" onclick="enviarJugoWhatsApp()">
+                Enviar pedido por WhatsApp
+              </button>
+
+              <button type="reset" class="btn-outline" onclick="resetEntrega()">
+                Limpiar
+              </button>
+            </div>
+
+            <p class="form-note">
+              Tu selección se convertirá en un mensaje listo para enviar por WhatsApp.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="final-cta-wrap">
+      <div class="container">
+        <div class="final-cta">
+          <h2>¿Lista para ordenar?</h2>
+          <p>
+            Escríbenos por WhatsApp y te ayudamos a escoger la opción perfecta para ti.
+          </p>
+          <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20jugos%20de%20La%20Poción" target="_blank" class="btn-primary">
+            Ordenar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function actualizarEntrega() {
+      const entregaTipo = document.getElementById("entregaTipo").value;
       const deliveryInfoBox = document.getElementById("deliveryInfoBox");
-      const deliveryHelpText = document.getElementById("deliveryHelpText");
-      const lugarEntrega = document.getElementById("lugarEntrega");
-      const entregaTipo = document.getElementById("entregaTipo");
       const deliveryLabel = document.getElementById("deliveryLabel");
+      const lugarEntrega = document.getElementById("lugarEntrega");
+      const deliveryHelpText = document.getElementById("deliveryHelpText");
+
+      if (!entregaTipo) {
+        deliveryInfoBox.style.display = "none";
+        lugarEntrega.value = "";
+        lugarEntrega.placeholder = "";
+        deliveryHelpText.textContent = "";
+        return;
+      }
+
+      deliveryInfoBox.style.display = "block";
+
+      if (entregaTipo === "Pickup en Montehiedra Mall") {
+        deliveryLabel.textContent = "Punto de entrega";
+        lugarEntrega.value = "Montehiedra Mall";
+        lugarEntrega.placeholder = "Montehiedra Mall";
+        deliveryHelpText.textContent = "Las entregas en pickup serán los lunes de 3:00 p.m. a 6:00 p.m. en Montehiedra Mall.";
+      } else if (entregaTipo === "Envío por correo") {
+        deliveryLabel.textContent = "Dirección de envío";
+        lugarEntrega.value = "";
+        lugarEntrega.placeholder = "Escribe tu dirección completa";
+        deliveryHelpText.textContent = "Los envíos por correo tardan aproximadamente de 48 a 72 horas.";
+      }
+    }
+
+    function calcularPrecioEstimado() {
+      const tamano = document.getElementById("tamano").value;
+      const cantidad = document.getElementById("cantidad").value;
+      const entregaTipo = document.getElementById("entregaTipo").value;
       const precioEstimado = document.getElementById("precioEstimado");
 
-      if (form) {
-        form.reset();
+      const precios = {
+        "12 oz": 7,
+        "16 oz": 9,
+        "Shot": 4
+      };
+
+      if (!tamano || !cantidad || !entregaTipo) {
+        precioEstimado.textContent = "Selecciona tamaño, cantidad y método de entrega";
+        return "";
+      }
+
+      if (cantidad === "10+") {
+        if (entregaTipo === "Envío por correo") {
+          precioEstimado.textContent = "Cotización especial + envío";
+          return "Cotización especial + envío";
+        } else {
+          precioEstimado.textContent = "Cotización especial";
+          return "Cotización especial";
+        }
+      }
+
+      const cantidadNumero = parseInt(cantidad, 10);
+      const precioUnitario = precios[tamano];
+
+      if (!precioUnitario || !cantidadNumero) {
+        precioEstimado.textContent = "Selecciona tamaño, cantidad y método de entrega";
+        return "";
+      }
+
+      let subtotal = precioUnitario * cantidadNumero;
+      let envio = 0;
+
+      if (entregaTipo === "Envío por correo") {
+        if (cantidadNumero <= 4) {
+          envio = 5;
+        } else if (cantidadNumero <= 9) {
+          envio = 7;
+        }
+      }
+
+      const totalFinal = subtotal + envio;
+      let textoPrecio = "$" + totalFinal.toFixed(2);
+
+      if (envio > 0) {
+        textoPrecio += " (incluye envío)";
+      }
+
+      precioEstimado.textContent = textoPrecio;
+      return textoPrecio;
+    }
+
+    function resetEntrega() {
+      setTimeout(() => {
+        const form = document.getElementById("customJuiceForm");
+        const deliveryInfoBox = document.getElementById("deliveryInfoBox");
+        const deliveryHelpText = document.getElementById("deliveryHelpText");
+        const lugarEntrega = document.getElementById("lugarEntrega");
+        const entregaTipo = document.getElementById("entregaTipo");
+        const deliveryLabel = document.getElementById("deliveryLabel");
+        const precioEstimado = document.getElementById("precioEstimado");
+
+        if (form) {
+          form.reset();
+        }
+
+        if (entregaTipo) {
+          entregaTipo.value = "";
+        }
+
+        if (deliveryLabel) {
+          deliveryLabel.textContent = "Punto de entrega";
+        }
+
+        if (deliveryInfoBox) {
+          deliveryInfoBox.style.display = "none";
+        }
+
+        if (deliveryHelpText) {
+          deliveryHelpText.textContent = "";
+        }
+
+        if (lugarEntrega) {
+          lugarEntrega.value = "";
+          lugarEntrega.placeholder = "";
+        }
+
+        if (precioEstimado) {
+          precioEstimado.textContent = "Selecciona tamaño, cantidad y método de entrega";
+        }
+      }, 0);
+    }
+
+    function enviarJugoWhatsApp() {
+      const numeroWhatsApp = "17874226548";
+
+      const nombre = document.getElementById("nombre").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const tamano = document.getElementById("tamano").value;
+      const cantidad = document.getElementById("cantidad").value;
+      const extraIngredient = document.getElementById("extraIngredient").value.trim();
+      const entregaTipo = document.getElementById("entregaTipo").value;
+      const fechaEntrega = document.getElementById("fechaEntrega").value;
+      const lugarEntrega = document.getElementById("lugarEntrega").value.trim();
+      const notas = document.getElementById("notas").value.trim();
+      const precioCalculado = calcularPrecioEstimado();
+
+      const ingredientesSeleccionados = Array.from(
+        document.querySelectorAll('.ingredients-checklist input[type="checkbox"]:checked')
+      ).map(item => item.value);
+
+      if (!nombre) {
+        alert("Por favor, escribe tu nombre.");
+        return;
+      }
+
+      if (!tamano) {
+        alert("Por favor, selecciona un tamaño.");
+        return;
+      }
+
+      if (!cantidad) {
+        alert("Por favor, selecciona la cantidad.");
+        return;
+      }
+
+      if (ingredientesSeleccionados.length === 0 && !extraIngredient) {
+        alert("Por favor, selecciona al menos un ingrediente o añade otro ingrediente.");
+        return;
+      }
+
+      if (!entregaTipo) {
+        alert("Por favor, selecciona un método de entrega.");
+        return;
+      }
+
+      if (entregaTipo === "Envío por correo" && !lugarEntrega) {
+        alert("Por favor, escribe la dirección de envío.");
+        return;
+      }
+
+      let mensaje = "Hola, quiero crear mi propio jugo en La Poción.%0A%0A";
+      mensaje += "*Nombre:* " + nombre + "%0A";
+
+      if (telefono) {
+        mensaje += "*Teléfono:* " + telefono + "%0A";
+      }
+
+      mensaje += "*Tamaño:* " + tamano + "%0A";
+      mensaje += "*Cantidad:* " + cantidad + "%0A";
+
+      if (precioCalculado) {
+        mensaje += "*Precio estimado:* " + precioCalculado + "%0A";
+      }
+
+      if (ingredientesSeleccionados.length > 0) {
+        mensaje += "*Ingredientes seleccionados:* " + ingredientesSeleccionados.join(", ") + "%0A";
+      }
+
+      if (extraIngredient) {
+        mensaje += "*Otro ingrediente:* " + extraIngredient + "%0A";
+      }
+
+      mensaje += "*Método de entrega:* " + entregaTipo + "%0A";
+
+      if (entregaTipo === "Pickup en Montehiedra Mall") {
+        mensaje += "*Punto de entrega:* Montehiedra Mall%0A";
+        mensaje += "*Horario de pickup:* Lunes de 3:00 p.m. a 6:00 p.m.%0A";
+      }
+
+      if (entregaTipo === "Envío por correo") {
+        mensaje += "*Dirección de envío:* " + lugarEntrega + "%0A";
+        mensaje += "*Tiempo estimado de entrega:* 48 a 72 horas%0A";
+      }
+
+      if (fechaEntrega) {
+        mensaje += "*Fecha deseada:* " + fechaEntrega + "%0A";
+      }
+
+      if (notas) {
+        mensaje += "*Notas adicionales:* " + notas + "%0A";
+      }
+
+      mensaje += "%0AGracias.";
+
+      const url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
+      window.open(url, "_blank");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const tamano = document.getElementById("tamano");
+      const cantidad = document.getElementById("cantidad");
+      const entregaTipo = document.getElementById("entregaTipo");
+
+      if (tamano) {
+        tamano.addEventListener("change", calcularPrecioEstimado);
+      }
+
+      if (cantidad) {
+        cantidad.addEventListener("change", calcularPrecioEstimado);
       }
 
       if (entregaTipo) {
-        entregaTipo.value = "";
+        entregaTipo.addEventListener("change", calcularPrecioEstimado);
       }
+    });
+  </script>
 
-      if (deliveryLabel) {
-        deliveryLabel.textContent = "Punto de entrega";
-      }
-
-      if (deliveryInfoBox) {
-        deliveryInfoBox.style.display = "none";
-      }
-
-      if (deliveryHelpText) {
-        deliveryHelpText.textContent = "";
-      }
-
-      if (lugarEntrega) {
-        lugarEntrega.value = "";
-        lugarEntrega.placeholder = "";
-      }
-
-      if (precioEstimado) {
-        precioEstimado.textContent = "Selecciona tamaño y cantidad";
-      }
-    }, 0);
-  }
-
-  function enviarJugoWhatsApp() {
-    const numeroWhatsApp = "17874226548";
-
-    const nombre = document.getElementById("nombre").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-    const tamano = document.getElementById("tamano").value;
-    const cantidad = document.getElementById("cantidad").value;
-    const extraIngredient = document.getElementById("extraIngredient").value.trim();
-    const entregaTipo = document.getElementById("entregaTipo").value;
-    const fechaEntrega = document.getElementById("fechaEntrega").value;
-    const lugarEntrega = document.getElementById("lugarEntrega").value.trim();
-    const notas = document.getElementById("notas").value.trim();
-    const precioCalculado = calcularPrecioEstimado();
-
-    const ingredientesSeleccionados = Array.from(
-      document.querySelectorAll('.ingredients-checklist input[type="checkbox"]:checked')
-    ).map(item => item.value);
-
-    if (!nombre) {
-      alert("Por favor, escribe tu nombre.");
-      return;
-    }
-
-    if (!tamano) {
-      alert("Por favor, selecciona un tamaño.");
-      return;
-    }
-
-    if (!cantidad) {
-      alert("Por favor, selecciona la cantidad.");
-      return;
-    }
-
-    if (ingredientesSeleccionados.length === 0 && !extraIngredient) {
-      alert("Por favor, selecciona al menos un ingrediente o añade otro ingrediente.");
-      return;
-    }
-
-    if (!entregaTipo) {
-      alert("Por favor, selecciona un método de entrega.");
-      return;
-    }
-
-    if (entregaTipo === "Envío por correo" && !lugarEntrega) {
-      alert("Por favor, escribe la dirección de envío.");
-      return;
-    }
-
-    let mensaje = "Hola, quiero crear mi propio jugo en La Poción.%0A%0A";
-    mensaje += "*Nombre:* " + nombre + "%0A";
-
-    if (telefono) {
-      mensaje += "*Teléfono:* " + telefono + "%0A";
-    }
-
-    mensaje += "*Tamaño:* " + tamano + "%0A";
-    mensaje += "*Cantidad:* " + cantidad + "%0A";
-
-    if (precioCalculado) {
-      mensaje += "*Precio estimado:* " + precioCalculado + "%0A";
-    }
-
-    if (ingredientesSeleccionados.length > 0) {
-      mensaje += "*Ingredientes seleccionados:* " + ingredientesSeleccionados.join(", ") + "%0A";
-    }
-
-    if (extraIngredient) {
-      mensaje += "*Otro ingrediente:* " + extraIngredient + "%0A";
-    }
-
-    mensaje += "*Método de entrega:* " + entregaTipo + "%0A";
-
-    if (entregaTipo === "Pickup en Montehiedra Mall") {
-      mensaje += "*Punto de entrega:* Montehiedra Mall%0A";
-      mensaje += "*Horario de pickup:* Lunes de 3:00 p.m. a 6:00 p.m.%0A";
-    }
-
-    if (entregaTipo === "Envío por correo") {
-      mensaje += "*Dirección de envío:* " + lugarEntrega + "%0A";
-      mensaje += "*Tiempo estimado de entrega:* 48 a 72 horas%0A";
-    }
-
-    if (fechaEntrega) {
-      mensaje += "*Fecha deseada:* " + fechaEntrega + "%0A";
-    }
-
-    if (notas) {
-      mensaje += "*Notas adicionales:* " + notas + "%0A";
-    }
-
-    mensaje += "%0AGracias.";
-
-    const url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
-    window.open(url, "_blank");
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const tamano = document.getElementById("tamano");
-    const cantidad = document.getElementById("cantidad");
-
-    if (tamano) {
-      tamano.addEventListener("change", calcularPrecioEstimado);
-    }
-
-    if (cantidad) {
-      cantidad.addEventListener("change", calcularPrecioEstimado);
-    }
-  });
-</script>
+</body>
+</html>
