@@ -493,7 +493,7 @@
             <h3>Kit Descubrimiento</h3>
             <p class="price">$26 · 4 jugos</p>
             <p>Ideal para probar sabores y descubrir tus favoritos.</p>
-            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Kit%20Descubrimiento%20de%204%20jugos%20por%20%2426" target="_blank" class="btn-secondary">Ordenar</a>
+            <button class="btn-secondary" onclick="ordenarCaja('Kit Descubrimiento', '4 jugos', '$26')">Ordenar</button>
           </div>
 
           <div class="box-card">
@@ -501,7 +501,7 @@
             <h3>Ritual Semanal</h3>
             <p class="price">$45 · 7 jugos</p>
             <p>Perfecto para acompañarte durante toda la semana.</p>
-            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Ritual%20Semanal%20de%207%20jugos%20por%20%2445" target="_blank" class="btn-secondary">Ordenar</a>
+            <button class="btn-secondary" onclick="ordenarCaja('Ritual Semanal', '7 jugos', '$45')">Ordenar</button>
           </div>
 
           <div class="box-card">
@@ -509,7 +509,7 @@
             <h3>Ritual Profundo</h3>
             <p class="price">$84 · 14 jugos</p>
             <p>Una opción más completa para mantener tu rutina activa.</p>
-            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20el%20Ritual%20Profundo%20de%2014%20jugos%20por%20%2484" target="_blank" class="btn-secondary">Ordenar</a>
+            <button class="btn-secondary" onclick="ordenarCaja('Ritual Profundo', '14 jugos', '$84')">Ordenar</button>
           </div>
 
           <div class="box-card">
@@ -517,7 +517,7 @@
             <h3>Transformación Total</h3>
             <p class="price">$180 · 30 jugos</p>
             <p>Tu ritual completo para disfrutar La Poción por más tiempo.</p>
-            <a href="https://wa.me/17874226548?text=Hola%2C%20quiero%20ordenar%20la%20Transformaci%C3%B3n%20Total%20de%2030%20jugos%20por%20%24180" target="_blank" class="btn-secondary">Ordenar</a>
+            <button class="btn-secondary" onclick="ordenarCaja('Transformación Total', '30 jugos', '$180')">Ordenar</button>
           </div>
         </div>
       </div>
@@ -889,6 +889,29 @@
         mensaje += "*Notas adicionales:* " + notas + "%0A";
       }
 
+      mensaje += "%0AGracias.";
+
+      const url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
+      window.open(url, "_blank");
+    }
+
+    function ordenarCaja(nombreCaja, cantidadJugos, precioCaja) {
+      const numeroWhatsApp = "17874226548";
+
+      let mensaje = "Hola, quiero ordenar una caja de La Poción.%0A%0A";
+      mensaje += "*Caja:* " + nombreCaja + "%0A";
+      mensaje += "*Cantidad:* " + cantidadJugos + "%0A";
+      mensaje += "*Precio:* " + precioCaja + "%0A";
+      mensaje += "%0A*Método de entrega:*%0A";
+      mensaje += "- Pickup en Montehiedra Mall (lunes de 3:00 p.m. a 6:00 p.m.)%0A";
+      mensaje += "- Envío por correo (48 a 72 horas)%0A";
+      mensaje += "%0A*Información a enviar:*%0A";
+      mensaje += "Nombre:%0A";
+      mensaje += "Teléfono:%0A";
+      mensaje += "Método de entrega:%0A";
+      mensaje += "Fecha deseada:%0A";
+      mensaje += "Dirección de envío (si aplica):%0A";
+      mensaje += "Notas adicionales:%0A";
       mensaje += "%0AGracias.";
 
       const url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
