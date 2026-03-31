@@ -1,122 +1,135 @@
-<!-- CREA TU PROPIO JUGO -->
-<section id="custom-juice" class="custom-section">
-  <div class="container">
-    <h2>Crea tu propio jugo</h2>
-    <p class="section-subtitle">
-      Escoge tus ingredientes favoritos, selecciona tu método de entrega y envíanos tu orden directamente por WhatsApp.
-    </p>
+<script>
+  function actualizarEntrega() {
+    const entregaTipo = document.getElementById("entregaTipo").value;
+    const deliveryInfoBox = document.getElementById("deliveryInfoBox");
+    const deliveryLabel = document.getElementById("deliveryLabel");
+    const lugarEntrega = document.getElementById("lugarEntrega");
+    const deliveryHelpText = document.getElementById("deliveryHelpText");
 
-    <div class="custom-form-wrap">
-      <form id="customJuiceForm" class="custom-form-grid">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nombre">Tu nombre</label>
-            <input type="text" id="nombre" placeholder="Escribe tu nombre" />
-          </div>
+    if (!entregaTipo) {
+      deliveryInfoBox.style.display = "none";
+      lugarEntrega.value = "";
+      lugarEntrega.placeholder = "";
+      deliveryHelpText.textContent = "";
+      return;
+    }
 
-          <div class="form-group">
-            <label for="telefono">Tu teléfono</label>
-            <input type="text" id="telefono" placeholder="Ej. 787-000-0000" />
-          </div>
-        </div>
+    deliveryInfoBox.style.display = "block";
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="tamano">Tamaño</label>
-            <select id="tamano">
-              <option value="">Selecciona un tamaño</option>
-              <option value="12 oz">12 oz</option>
-              <option value="16 oz">16 oz</option>
-              <option value="Shot">Shot</option>
-            </select>
-          </div>
+    if (entregaTipo === "Pickup en Montehiedra Mall") {
+      deliveryLabel.textContent = "Punto de entrega";
+      lugarEntrega.value = "Montehiedra Mall";
+      lugarEntrega.placeholder = "Montehiedra Mall";
+      deliveryHelpText.textContent = "Las entregas en pickup serán los lunes de 3:00 p.m. a 6:00 p.m. en Montehiedra Mall.";
+    } else if (entregaTipo === "Envío por correo") {
+      deliveryLabel.textContent = "Dirección de envío";
+      lugarEntrega.value = "";
+      lugarEntrega.placeholder = "Escribe tu dirección completa";
+      deliveryHelpText.textContent = "Los envíos por correo tardan aproximadamente de 48 a 72 horas.";
+    }
+  }
 
-          <div class="form-group">
-            <label for="cantidad">Cantidad</label>
-            <select id="cantidad">
-              <option value="">Selecciona cantidad</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10+">10+</option>
-            </select>
-          </div>
-        </div>
+  function resetEntrega() {
+    setTimeout(() => {
+      const deliveryInfoBox = document.getElementById("deliveryInfoBox");
+      const deliveryHelpText = document.getElementById("deliveryHelpText");
+      const lugarEntrega = document.getElementById("lugarEntrega");
 
-        <div class="form-group">
-          <label>Ingredientes</label>
-          <div class="ingredients-checklist">
-            <label class="ingredient-option"><input type="checkbox" value="Manzana verde" /> Manzana verde</label>
-            <label class="ingredient-option"><input type="checkbox" value="Manzana roja" /> Manzana roja</label>
-            <label class="ingredient-option"><input type="checkbox" value="Piña" /> Piña</label>
-            <label class="ingredient-option"><input type="checkbox" value="Jengibre" /> Jengibre</label>
-            <label class="ingredient-option"><input type="checkbox" value="Cúrcuma" /> Cúrcuma</label>
-            <label class="ingredient-option"><input type="checkbox" value="Zanahoria" /> Zanahoria</label>
-            <label class="ingredient-option"><input type="checkbox" value="Remolacha" /> Remolacha</label>
-            <label class="ingredient-option"><input type="checkbox" value="Espinaca" /> Espinaca</label>
-            <label class="ingredient-option"><input type="checkbox" value="Fresas" /> Fresas</label>
-            <label class="ingredient-option"><input type="checkbox" value="Mango" /> Mango</label>
-            <label class="ingredient-option"><input type="checkbox" value="Celery" /> Celery</label>
-            <label class="ingredient-option"><input type="checkbox" value="Guineo" /> Guineo</label>
-            <label class="ingredient-option"><input type="checkbox" value="Limón" /> Limón</label>
-            <label class="ingredient-option"><input type="checkbox" value="China" /> China</label>
-            <label class="ingredient-option"><input type="checkbox" value="Apio" /> Apio</label>
-            <label class="ingredient-option"><input type="checkbox" value="Pepino" /> Pepino</label>
-          </div>
-        </div>
+      deliveryInfoBox.style.display = "none";
+      deliveryHelpText.textContent = "";
+      lugarEntrega.value = "";
+      lugarEntrega.placeholder = "";
+    }, 0);
+  }
 
-        <div class="form-group">
-          <label for="extraIngredient">Otro ingrediente</label>
-          <input type="text" id="extraIngredient" placeholder="Ej. pera, kiwi, avena..." />
-        </div>
+  function enviarJugoWhatsApp() {
+    const numeroWhatsApp = "17874226548";
 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="entregaTipo">Método de entrega</label>
-            <select id="entregaTipo" onchange="actualizarEntrega()">
-              <option value="">Selecciona una opción</option>
-              <option value="Pickup en Montehiedra Mall">Pickup en Montehiedra Mall</option>
-              <option value="Envío por correo">Envío por correo</option>
-            </select>
-          </div>
+    const nombre = document.getElementById("nombre").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const tamano = document.getElementById("tamano").value;
+    const cantidad = document.getElementById("cantidad").value;
+    const extraIngredient = document.getElementById("extraIngredient").value.trim();
+    const entregaTipo = document.getElementById("entregaTipo").value;
+    const fechaEntrega = document.getElementById("fechaEntrega").value;
+    const lugarEntrega = document.getElementById("lugarEntrega").value.trim();
+    const notas = document.getElementById("notas").value.trim();
 
-          <div class="form-group">
-            <label for="fechaEntrega">Fecha deseada</label>
-            <input type="date" id="fechaEntrega" />
-          </div>
-        </div>
+    const ingredientesSeleccionados = Array.from(
+      document.querySelectorAll('.ingredients-checklist input[type="checkbox"]:checked')
+    ).map(item => item.value);
 
-        <div class="form-group" id="deliveryInfoBox" style="display:none;">
-          <label id="deliveryLabel" for="lugarEntrega">Punto de entrega</label>
-          <input type="text" id="lugarEntrega" placeholder="" />
-          <p id="deliveryHelpText" style="margin-top:8px; font-size:0.92rem; color:#7a746e;"></p>
-        </div>
+    if (!nombre) {
+      alert("Por favor, escribe tu nombre.");
+      return;
+    }
 
-        <div class="form-group">
-          <label for="notas">Notas adicionales</label>
-          <textarea id="notas" rows="4" placeholder="Ej. sin jengibre, más piña, poco dulce, tocar bocina al llegar..."></textarea>
-        </div>
+    if (!tamano) {
+      alert("Por favor, selecciona un tamaño.");
+      return;
+    }
 
-        <div class="custom-buttons">
-          <button type="button" class="btn-primary" onclick="enviarJugoWhatsApp()">
-            Enviar pedido por WhatsApp
-          </button>
+    if (!cantidad) {
+      alert("Por favor, selecciona la cantidad.");
+      return;
+    }
 
-          <button type="reset" class="btn-outline" onclick="resetEntrega()">
-            Limpiar
-          </button>
-        </div>
+    if (ingredientesSeleccionados.length === 0 && !extraIngredient) {
+      alert("Por favor, selecciona al menos un ingrediente o añade otro ingrediente.");
+      return;
+    }
 
-        <p class="form-note">
-          Tu selección se convertirá en un mensaje listo para enviar por WhatsApp.
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
+    if (!entregaTipo) {
+      alert("Por favor, selecciona un método de entrega.");
+      return;
+    }
+
+    if (entregaTipo === "Envío por correo" && !lugarEntrega) {
+      alert("Por favor, escribe la dirección de envío.");
+      return;
+    }
+
+    let mensaje = "Hola, quiero crear mi propio jugo en La Poción.%0A%0A";
+    mensaje += "*Nombre:* " + nombre + "%0A";
+
+    if (telefono) {
+      mensaje += "*Teléfono:* " + telefono + "%0A";
+    }
+
+    mensaje += "*Tamaño:* " + tamano + "%0A";
+    mensaje += "*Cantidad:* " + cantidad + "%0A";
+
+    if (ingredientesSeleccionados.length > 0) {
+      mensaje += "*Ingredientes seleccionados:* " + ingredientesSeleccionados.join(", ") + "%0A";
+    }
+
+    if (extraIngredient) {
+      mensaje += "*Otro ingrediente:* " + extraIngredient + "%0A";
+    }
+
+    mensaje += "*Método de entrega:* " + entregaTipo + "%0A";
+
+    if (entregaTipo === "Pickup en Montehiedra Mall") {
+      mensaje += "*Lugar de entrega:* Montehiedra Mall%0A";
+      mensaje += "*Horario de pickup:* Lunes de 3:00 p.m. a 6:00 p.m.%0A";
+    }
+
+    if (entregaTipo === "Envío por correo") {
+      mensaje += "*Dirección de envío:* " + lugarEntrega + "%0A";
+      mensaje += "*Tiempo estimado de entrega:* 48 a 72 horas%0A";
+    }
+
+    if (fechaEntrega) {
+      mensaje += "*Fecha deseada:* " + fechaEntrega + "%0A";
+    }
+
+    if (notas) {
+      mensaje += "*Notas adicionales:* " + notas + "%0A";
+    }
+
+    mensaje += "%0AGracias.";
+
+    const url = "https://wa.me/" + numeroWhatsApp + "?text=" + mensaje;
+    window.open(url, "_blank");
+  }
+</script>
