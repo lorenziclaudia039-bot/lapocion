@@ -1,1 +1,169 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Poción</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f5ef;
+      color: #3e2f26;
+      text-align: center;
+    }
+
+    header {
+      padding: 60px 20px;
+      background: #dfead7;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    section {
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 15px auto;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #355e3b;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #2b4b30;
+    }
+
+    .whatsapp {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 25px;
+      background: #25D366;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>La Poción</h1>
+  <p>Jugos que se sienten bien ✨</p>
+</header>
+
+<section>
+  <h2>Nuestros favoritos</h2>
+
+  <div class="card">Glow Verde - $8</div>
+  <div class="card">Golden Boost - $8</div>
+  <div class="card">Berry Power - $8</div>
+  <div class="card">Tropical - $8</div>
+
+</section>
+
+<section>
+  <h2>Ordena</h2>
+
+  <div class="card">
+    <h3>Escoge tus favoritos</h3>
+
+    <input id="name1" placeholder="Tu nombre">
+
+    <select id="size1">
+      <option value="">Tamaño de caja</option>
+      <option>Caja de 4</option>
+      <option>Caja de 7</option>
+      <option>Caja de 14</option>
+      <option>Caja de 30</option>
+    </select>
+
+    <textarea id="flavors1" placeholder="Ej: 2 Glow Verde, 1 Tropical"></textarea>
+
+    <button onclick="sendFav()">Enviar por WhatsApp</button>
+  </div>
+
+  <div class="card">
+    <h3>Arma tu caja</h3>
+
+    <input id="name2" placeholder="Tu nombre">
+
+    <select id="size2">
+      <option value="">Tamaño de caja</option>
+      <option>Caja de 4</option>
+      <option>Caja de 7</option>
+      <option>Caja de 14</option>
+      <option>Caja de 30</option>
+    </select>
+
+    <textarea id="custom" placeholder="Ingredientes o combinaciones"></textarea>
+
+    <button onclick="sendCustom()">Enviar personalizado</button>
+  </div>
+
+</section>
+
+<a class="whatsapp" href="https://wa.me/17874324865" target="_blank">
+  Escríbeme por WhatsApp
+</a>
+
+<script>
+  const phone = "17874324865";
+
+  function sendFav() {
+    let name = document.getElementById("name1").value;
+    let size = document.getElementById("size1").value;
+    let flavors = document.getElementById("flavors1").value;
+
+    let msg = `Hola, quiero ordenar en La Poción.%0A%0A`;
+    msg += `Nombre: ${name}%0A`;
+    msg += `Caja: ${size}%0A`;
+    msg += `Sabores: ${flavors}`;
+
+    window.open(`https://wa.me/${phone}?text=${msg}`);
+  }
+
+  function sendCustom() {
+    let name = document.getElementById("name2").value;
+    let size = document.getElementById("size2").value;
+    let custom = document.getElementById("custom").value;
+
+    let msg = `Hola, quiero ordenar en La Poción.%0A%0A`;
+    msg += `Nombre: ${name}%0A`;
+    msg += `Caja: ${size}%0A`;
+    msg += `Personalizado: ${custom}`;
+
+    window.open(`https://wa.me/${phone}?text=${msg}`);
+  }
+</script>
+
+</body>
+</html>
