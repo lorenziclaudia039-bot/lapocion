@@ -3,1386 +3,877 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>La Poción</title>
-
+  <title>La Poción | Jugos que se sienten bien</title>
   <style>
+    :root {
+      --bg: #f7f3ea;
+      --bg-soft: #fffaf2;
+      --card: rgba(255,255,255,0.88);
+      --text: #2c2a26;
+      --muted: #6d665b;
+      --green: #5f7d4e;
+      --green-dark: #47603b;
+      --line: rgba(44, 42, 38, 0.10);
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 22px;
+    }
+
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background:
-        radial-gradient(circle at top, rgba(255,255,255,0.75), transparent 35%),
-        linear-gradient(to bottom, #fdf8f5 0%, #f6efe8 28%, #eef5ee 65%, #e7f0e8 100%);
-      color: #3b3b3b;
-      line-height: 1.5;
-    }
-
-    main {
-      width: 100%;
-    }
-
-    section {
-      padding: 60px 20px;
+        radial-gradient(circle at top left, rgba(215,180,106,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(95,125,78,0.16), transparent 30%),
+        var(--bg);
+      color: var(--text);
     }
 
     .container {
-      max-width: 1150px;
+      width: min(1120px, 92%);
       margin: 0 auto;
     }
 
-    h1, h2, h3 {
-      font-weight: 600;
-      letter-spacing: 0.2px;
+    header {
+      padding: 22px 0;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(247,243,234,0.78);
+      border-bottom: 1px solid var(--line);
+      z-index: 20;
     }
 
-    h1 {
-      font-size: 2.6rem;
-      margin-bottom: 14px;
-      color: #5a4d4d;
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: #58715f;
-      text-align: center;
-    }
-
-    h3 {
-      font-size: 1.12rem;
-      margin-bottom: 6px;
-      color: #5f5551;
-    }
-
-    p {
-      font-size: 1rem;
-      color: #6b6763;
-    }
-
-    .section-subtitle {
-      max-width: 700px;
-      margin: 0 auto 30px;
-      color: #7a746e;
-      text-align: center;
-    }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 85px 20px 70px;
-      position: relative;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35), transparent 22%),
-                  radial-gradient(circle at 80% 30%, rgba(255,255,255,0.22), transparent 18%);
-      pointer-events: none;
-    }
-
-    .hero .container {
-      position: relative;
-      z-index: 2;
-    }
-
-    .logo {
-      width: 120px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 10px 18px rgba(100, 120, 100, 0.12));
-    }
-
-    .hero h1 {
-      text-shadow: 0 2px 10px rgba(255,255,255,0.45);
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: 0 auto;
-      font-size: 1.05rem;
-    }
-
-    /* GRID */
-    .products-grid,
-    .boxes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-top: 30px;
-    }
-
-    /* CARDS */
-    .product-card,
-    .box-card,
-    .order-summary-card,
-    .box-builder,
-    .custom-form-wrap,
-    .pickup-shipping-wrap {
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(196, 211, 198, 0.55);
-      backdrop-filter: blur(10px);
-      border-radius: 28px;
-      box-shadow: 0 14px 30px rgba(110, 130, 115, 0.10);
-    }
-
-    .product-card,
-    .box-card {
-      padding: 26px 20px 24px;
-      text-align: center;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .product-card:hover,
-    .box-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 36px rgba(110, 130, 115, 0.15);
-    }
-
-    .product-card img,
-    .box-card img {
-      width: 100%;
-      max-width: 112px;
-      height: auto;
-      display: block;
-      margin: 0 auto 16px;
-    }
-
-    .price {
+    .brand {
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #7d9b7f;
-      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+      color: var(--green-dark);
     }
 
-    .product-card p:last-of-type,
-    .box-card p:last-of-type {
-      font-size: 0.95rem;
-      min-height: 44px;
-    }
-
-    /* BUTTONS */
-    .btn-primary,
-    .btn-secondary,
-    .btn-outline,
-    .btn-soft {
-      display: inline-block;
+    .nav a {
       text-decoration: none;
-      border-radius: 999px;
-      padding: 11px 22px;
-      font-size: 0.95rem;
-      transition: all 0.25s ease;
-      cursor: pointer;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
       border: none;
-      font-family: inherit;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #8cab8d, #739276);
-      color: white;
-      box-shadow: 0 10px 20px rgba(123, 154, 126, 0.22);
+      background: var(--green);
+      color: #fff;
+      box-shadow: var(--shadow);
     }
 
     .btn-primary:hover {
+      background: var(--green-dark);
       transform: translateY(-1px);
-      background: linear-gradient(135deg, #7fa182, #68886c);
     }
 
     .btn-secondary {
-      background: #f4eee8;
-      color: #5f5954;
-      margin-top: 12px;
-      border: 1px solid rgba(199, 188, 180, 0.45);
+      background: rgba(255,255,255,0.7);
+      color: var(--text);
+      border: 1px solid var(--line);
     }
 
-    .btn-secondary:hover {
-      background: #efe6df;
+    .hero {
+      padding: 70px 0 40px;
     }
 
-    .btn-outline {
-      background: transparent;
-      color: #739276;
-      border: 1px solid #739276;
-    }
-
-    .btn-outline:hover {
-      background: rgba(115, 146, 118, 0.08);
-    }
-
-    .btn-soft {
-      background: rgba(115, 146, 118, 0.10);
-      color: #5d7460;
-      border: 1px solid rgba(115, 146, 118, 0.18);
-    }
-
-    .btn-soft:hover {
-      background: rgba(115, 146, 118, 0.16);
-    }
-
-    /* PRODUCT SMALL FORM */
-    .mini-form {
-      margin-top: 14px;
+    .hero-grid {
       display: grid;
-      gap: 10px;
-      text-align: left;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
     }
 
-    .mini-form label,
-    .box-builder label,
-    .custom-form-grid label,
-    .pickup-shipping-wrap label {
-      display: block;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: #5f5551;
-      margin-bottom: 6px;
-      text-align: left;
+    .hero-card,
+    .info-card,
+    .builder-card,
+    .summary-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
-    .mini-form select,
-    .mini-form input,
-    .mini-form textarea,
-    .box-builder select,
-    .box-builder input,
-    .box-builder textarea,
-    .custom-form-grid select,
-    .custom-form-grid input,
-    .custom-form-grid textarea,
-    .pickup-shipping-wrap select,
-    .pickup-shipping-wrap input,
-    .pickup-shipping-wrap textarea {
-      width: 100%;
-      padding: 13px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(196, 211, 198, 0.85);
-      background: rgba(255,255,255,0.92);
-      font-size: 0.95rem;
-      color: #4f4a46;
-      outline: none;
-      font-family: inherit;
+    .hero-card {
+      padding: 42px;
     }
 
-    .mini-form select:focus,
-    .mini-form input:focus,
-    .mini-form textarea:focus,
-    .box-builder select:focus,
-    .box-builder input:focus,
-    .box-builder textarea:focus,
-    .custom-form-grid select:focus,
-    .custom-form-grid input:focus,
-    .custom-form-grid textarea:focus,
-    .pickup-shipping-wrap select:focus,
-    .pickup-shipping-wrap input:focus,
-    .pickup-shipping-wrap textarea:focus {
-      border-color: #8cab8d;
-      box-shadow: 0 0 0 3px rgba(140, 171, 141, 0.12);
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      background: rgba(215,180,106,0.18);
+      color: #8d6c28;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
-    /* BOX BUILDER */
-    .box-builder {
-      padding: 28px 22px;
-      max-width: 900px;
-      margin: 30px auto 0;
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      color: var(--green-dark);
     }
 
-    .box-builder-grid,
-    .custom-form-grid,
-    .pickup-grid {
-      display: grid;
-      gap: 18px;
+    .hero p {
+      margin: 0 0 18px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 58ch;
+      line-height: 1.7;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
     }
 
-    .flavor-tags {
+    .info-card {
+      padding: 28px;
+    }
+
+    .info-card h3 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: var(--green-dark);
+      font-size: 1.25rem;
+    }
+
+    .pill-list {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 6px;
     }
 
-    .flavor-tags span {
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(202, 214, 203, 0.65);
-      color: #617262;
+    .pill {
       padding: 10px 14px;
       border-radius: 999px;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      font-size: 0.94rem;
+      color: var(--text);
     }
 
-    /* CUSTOM JUICE */
-    .custom-section {
-      text-align: center;
+    section {
+      padding: 26px 0;
     }
 
-    .custom-form-wrap {
-      max-width: 900px;
-      margin: 30px auto 0;
-      padding: 28px 22px;
-      text-align: left;
+    .section-title {
+      font-size: 2rem;
+      margin: 0 0 10px;
+      color: var(--green-dark);
     }
 
-    .ingredients-checklist {
+    .section-subtitle {
+      margin: 0 0 26px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .builder-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .builder-card {
+      padding: 28px;
+    }
+
+    .summary-card {
+      padding: 28px;
+      position: sticky;
+      top: 96px;
+    }
+
+    .block {
+      margin-bottom: 30px;
+    }
+
+    .block:last-child {
+      margin-bottom: 0;
+    }
+
+    .block h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      color: var(--green-dark);
+    }
+
+    .helper {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .size-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .size-card {
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.25s ease;
+      position: relative;
+    }
+
+    .size-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(95,125,78,0.45);
+    }
+
+    .size-card input {
+      display: none;
+    }
+
+    .size-card.active {
+      border-color: var(--green);
+      background: rgba(95,125,78,0.08);
+      box-shadow: 0 8px 20px rgba(95,125,78,0.12);
+    }
+
+    .size-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .size-price {
+      font-size: 1rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tag {
+      display: inline-block;
       margin-top: 6px;
+      font-size: 0.78rem;
+      background: rgba(215,180,106,0.22);
+      color: #8d6c28;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .ingredients-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
     .ingredient-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(202, 214, 203, 0.65);
-      color: #617262;
-      padding: 12px 14px;
-      border-radius: 18px;
-      font-size: 0.93rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    }
-
-    .ingredient-option input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      accent-color: #7d9b7f;
-      flex-shrink: 0;
-    }
-
-    .price-estimate-box {
-      background: rgba(255,255,255,0.88);
-      border: 1px solid rgba(202, 214, 203, 0.65);
-      border-radius: 22px;
-      padding: 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-      text-align: center;
-    }
-
-    .price-estimate-label {
-      font-size: 0.92rem;
-      color: #7a746e;
-      margin-bottom: 6px;
-    }
-
-    .price-estimate-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #739276;
-      margin-bottom: 6px;
-    }
-
-    .price-estimate-note {
-      font-size: 0.88rem;
-      color: #8a847d;
-    }
-
-    /* ORDER SUMMARY */
-    .order-summary-card {
-      padding: 30px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .order-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .order-item {
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(202, 214, 203, 0.65);
-      border-radius: 20px;
-      padding: 16px 16px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .order-item strong {
-      color: #5f5551;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .order-item small {
-      color: #7a746e;
-      line-height: 1.4;
-      display: block;
-    }
-
-    .empty-order {
-      text-align: center;
-      color: #7a746e;
-      padding: 18px 10px 4px;
-    }
-
-    .summary-topline {
-      text-align: center;
-      margin-top: 8px;
-      color: #6f6a65;
-    }
-
-    .summary-total {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #739276;
-    }
-
-    .remove-btn {
-      background: transparent;
-      border: none;
-      color: #9a8f88;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 14px 14px 48px;
+      position: relative;
       cursor: pointer;
-      font-size: 0.9rem;
-      text-decoration: underline;
-      padding-top: 3px;
-    }
-
-    .remove-btn:hover {
-      color: #6d8a72;
-    }
-
-    /* DELIVERY FINAL */
-    .pickup-shipping-wrap {
-      max-width: 900px;
-      margin: 30px auto 0;
-      padding: 28px 22px;
-    }
-
-    .delivery-help-text {
-      margin-top: 8px;
-      font-size: 0.92rem;
-      color: #7a746e;
-    }
-
-    .custom-buttons,
-    .final-order-actions,
-    .mini-actions {
+      transition: 0.2s ease;
+      min-height: 76px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 24px;
     }
 
-    .form-note {
-      text-align: center;
-      margin-top: 14px;
-      font-size: 0.92rem;
-      color: #7a746e;
+    .ingredient-option:hover {
+      border-color: rgba(95,125,78,0.45);
+      transform: translateY(-1px);
     }
 
-    /* FINAL CTA */
-    .final-cta-wrap {
-      padding-top: 10px;
-      padding-bottom: 85px;
+    .ingredient-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .final-cta {
-      max-width: 920px;
-      margin: 0 auto;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04)),
-        linear-gradient(135deg, #8ba98a, #6f8f79, #90a997);
-      color: white;
-      border-radius: 34px;
-      text-align: center;
-      padding: 52px 24px;
-      box-shadow: 0 20px 40px rgba(107, 137, 112, 0.22);
-    }
-
-    .final-cta h2 {
-      color: white;
-      margin-bottom: 10px;
-    }
-
-    .final-cta p {
-      color: rgba(255,255,255,0.92);
-      max-width: 540px;
-      margin: 0 auto 20px;
-    }
-
-    .final-cta .btn-primary {
-      background: #fff7f2;
-      color: #6d8a72;
-      box-shadow: none;
-    }
-
-    .final-cta .btn-primary:hover {
+    .ingredient-option::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(95,125,78,0.45);
       background: #fff;
     }
 
-    @media (max-width: 768px) {
-      section {
-        padding: 50px 18px;
-      }
+    .ingredient-option.selected::before {
+      background: var(--green);
+      border-color: var(--green);
+      box-shadow: inset 0 0 0 4px #fff;
+    }
 
-      h1 {
-        font-size: 2rem;
-      }
+    .ingredient-name {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
 
-      h2 {
-        font-size: 1.65rem;
-      }
+    .ingredient-price {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
-      .product-card,
-      .box-card {
-        padding: 22px 18px;
-      }
+    .ingredient-note {
+      font-size: 0.82rem;
+      color: #9b6c28;
+    }
 
-      .product-card img,
-      .box-card img {
-        max-width: 98px;
-      }
+    .counter {
+      margin-top: 14px;
+      font-size: 0.94rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
 
-      .custom-form-wrap,
-      .box-builder,
-      .order-summary-card,
-      .pickup-shipping-wrap {
-        padding: 22px 16px;
-      }
+    .counter strong {
+      color: var(--green-dark);
+    }
 
-      .ingredients-checklist {
+    .summary-card h3 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      color: var(--green-dark);
+    }
+
+    .summary-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(44,42,38,0.1);
+      font-size: 0.96rem;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-row span:last-child {
+      font-weight: 700;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--green-dark);
+    }
+
+    .notice {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .mini-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 36px 0 56px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .builder-layout {
         grid-template-columns: 1fr;
       }
 
-      .form-row {
+      .summary-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .size-options,
+      .ingredients-grid {
         grid-template-columns: 1fr;
       }
 
-      .custom-buttons,
-      .final-order-actions,
-      .mini-actions {
-        flex-direction: column;
-        align-items: stretch;
+      .hero-card,
+      .info-card,
+      .builder-card,
+      .summary-card {
+        padding: 22px;
       }
 
-      .custom-buttons .btn-primary,
-      .custom-buttons .btn-outline,
-      .final-order-actions .btn-primary,
-      .final-order-actions .btn-outline,
-      .mini-actions .btn-secondary,
-      .mini-actions .btn-soft {
-        width: 100%;
-        text-align: center;
-      }
-
-      .order-item {
+      .nav {
         flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <img src="logo.png" alt="La Poción logo" class="logo" />
-        <h1>Jugos que se sienten bien</h1>
+  <header>
+    <div class="container nav">
+      <div class="brand">La Poción ✨</div>
+      <div class="nav-links">
+        <a href="#crear">Crea tu Poción</a>
+        <a href="#ingredientes">Ingredientes</a>
+        <a href="#ordenar" class="btn btn-primary">Ordenar</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="eyebrow">Jugos que se sienten bien</div>
+        <h1>Tu jugo, a tu manera.</h1>
         <p>
-          La magia está en los ingredientes. Jugos frescos, funcionales y hechos para acompañar tu bienestar de una forma rica, delicada y especial.
+          En <strong>La Poción</strong> puedes crear tu propia mezcla con ingredientes frescos,
+          sabores vibrantes y ese toque especial que hace cada jugo único.
         </p>
-      </div>
-    </section>
-
-    <!-- NUESTROS FAVORITOS -->
-    <section id="jugos" class="products-section">
-      <div class="container">
-        <h2>Nuestros favoritos</h2>
-        <p class="section-subtitle">
-          Añade shots o jugos individuales a tu pedido. Puedes seguir sumando productos y enviar toda tu orden al final.
+        <p>
+          Escoge tu tamaño, selecciona tus ingredientes y personaliza tu orden.
+          Cada tamaño incluye <strong>3 ingredientes</strong> y puedes añadir más
+          por un costo adicional.
         </p>
-
-        <div class="products-grid">
-          <div class="product-card">
-            <img src="glow-verde.png" alt="Glow Verde" />
-            <h3>Glow Verde</h3>
-            <p class="price">$7 · 12 oz | $9 · 16 oz | $4 · Shot</p>
-            <p>Refrescante, ligero y perfecto para comenzar el día.</p>
-
-            <div class="mini-form">
-              <div>
-                <label for="productSize1">Tamaño</label>
-                <select id="productSize1">
-                  <option value="Shot">Shot</option>
-                  <option value="12 oz">12 oz</option>
-                  <option value="16 oz">16 oz</option>
-                </select>
-              </div>
-              <div>
-                <label for="productQty1">Cantidad</label>
-                <select id="productQty1">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <div class="mini-actions">
-                <button class="btn-secondary" type="button" onclick="addFavoriteProduct('Glow Verde', 'productSize1', 'productQty1')">Añadir al pedido</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <img src="golden-boost.png" alt="Golden Boost" />
-            <h3>Golden Boost</h3>
-            <p class="price">$8 · 12 oz | $10 · 16 oz | $5 · Shot</p>
-            <p>Energía natural con un toque vibrante y delicioso.</p>
-
-            <div class="mini-form">
-              <div>
-                <label for="productSize2">Tamaño</label>
-                <select id="productSize2">
-                  <option value="Shot">Shot</option>
-                  <option value="12 oz">12 oz</option>
-                  <option value="16 oz">16 oz</option>
-                </select>
-              </div>
-              <div>
-                <label for="productQty2">Cantidad</label>
-                <select id="productQty2">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <div class="mini-actions">
-                <button class="btn-secondary" type="button" onclick="addFavoriteProduct('Golden Boost', 'productSize2', 'productQty2')">Añadir al pedido</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <img src="berry-power.png" alt="Berry Power" />
-            <h3>Berry Power</h3>
-            <p class="price">$8 · 12 oz | $10 · 16 oz | $5 · Shot</p>
-            <p>Una mezcla llena de color, sabor y antioxidantes.</p>
-
-            <div class="mini-form">
-              <div>
-                <label for="productSize3">Tamaño</label>
-                <select id="productSize3">
-                  <option value="Shot">Shot</option>
-                  <option value="12 oz">12 oz</option>
-                  <option value="16 oz">16 oz</option>
-                </select>
-              </div>
-              <div>
-                <label for="productQty3">Cantidad</label>
-                <select id="productQty3">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <div class="mini-actions">
-                <button class="btn-secondary" type="button" onclick="addFavoriteProduct('Berry Power', 'productSize3', 'productQty3')">Añadir al pedido</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="product-card">
-            <img src="tropical.png" alt="Tropical" />
-            <h3>Tropical</h3>
-            <p class="price">$7 · 12 oz | $9 · 16 oz | $4 · Shot</p>
-            <p>Suave, refrescante y con ese mood tropical que encanta.</p>
-
-            <div class="mini-form">
-              <div>
-                <label for="productSize4">Tamaño</label>
-                <select id="productSize4">
-                  <option value="Shot">Shot</option>
-                  <option value="12 oz">12 oz</option>
-                  <option value="16 oz">16 oz</option>
-                </select>
-              </div>
-              <div>
-                <label for="productQty4">Cantidad</label>
-                <select id="productQty4">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <div class="mini-actions">
-                <button class="btn-secondary" type="button" onclick="addFavoriteProduct('Tropical', 'productSize4', 'productQty4')">Añadir al pedido</button>
-              </div>
-            </div>
-          </div>
+        <div class="hero-actions">
+          <a href="#crear" class="btn btn-primary">Crear mi Poción</a>
+          <a href="#ingredientes" class="btn btn-secondary">Ver ingredientes</a>
         </div>
       </div>
-    </section>
 
-    <!-- CAJAS -->
-    <section id="cajas" class="boxes-section">
-      <div class="container">
-        <h2>Elige tu ritual</h2>
-        <p class="section-subtitle">
-          Escoge una caja y escribe el mix de sabores que quieres dentro. Puedes pedirlos todos iguales o combinarlos como prefieras.
-        </p>
-
-        <div class="boxes-grid">
-          <div class="box-card">
-            <img src="kit-descubrimiento.png" alt="Kit Descubrimiento" />
-            <h3>Kit Descubrimiento</h3>
-            <p class="price">$26 · 4 jugos</p>
-            <p>Ideal para probar sabores y descubrir tus favoritos.</p>
-          </div>
-
-          <div class="box-card">
-            <img src="ritual-semanal.png" alt="Ritual Semanal" />
-            <h3>Ritual Semanal</h3>
-            <p class="price">$45 · 7 jugos</p>
-            <p>Perfecto para acompañarte durante toda la semana.</p>
-          </div>
-
-          <div class="box-card">
-            <img src="ritual-profundo.png" alt="Ritual Profundo" />
-            <h3>Ritual Profundo</h3>
-            <p class="price">$84 · 14 jugos</p>
-            <p>Una opción más completa para mantener tu rutina activa.</p>
-          </div>
-
-          <div class="box-card">
-            <img src="transformacion-total.png" alt="Transformación Total" />
-            <h3>Transformación Total</h3>
-            <p class="price">$180 · 30 jugos</p>
-            <p>Tu ritual completo para disfrutar La Poción por más tiempo.</p>
-          </div>
-        </div>
-
-        <div class="box-builder">
-          <div class="box-builder-grid">
-            <div class="form-row">
-              <div>
-                <label for="boxType">Caja</label>
-                <select id="boxType">
-                  <option value="">Selecciona una caja</option>
-                  <option value="Kit Descubrimiento|4 jugos|26">Kit Descubrimiento · 4 jugos · $26</option>
-                  <option value="Ritual Semanal|7 jugos|45">Ritual Semanal · 7 jugos · $45</option>
-                  <option value="Ritual Profundo|14 jugos|84">Ritual Profundo · 14 jugos · $84</option>
-                  <option value="Transformación Total|30 jugos|180">Transformación Total · 30 jugos · $180</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="boxQuantity">Cantidad de cajas</label>
-                <select id="boxQuantity">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label>Sabores principales disponibles</label>
-              <div class="flavor-tags">
-                <span>Glow Verde</span>
-                <span>Golden Boost</span>
-                <span>Berry Power</span>
-                <span>Tropical</span>
-              </div>
-            </div>
-
-            <div>
-              <label for="boxMix">Escribe el mix de sabores</label>
-              <textarea id="boxMix" rows="4" placeholder="Ej. 4 Glow Verde y 3 Tropical / 2 de cada uno / mix de los cuatro sabores principales"></textarea>
-            </div>
-
-            <div class="mini-actions">
-              <button class="btn-secondary" type="button" onclick="addBoxToOrder()">Añadir caja al pedido</button>
-            </div>
-          </div>
+      <div class="info-card">
+        <h3>Así funciona</h3>
+        <div class="pill-list">
+          <div class="pill">12 oz — $12</div>
+          <div class="pill">16 oz — $15</div>
+          <div class="pill">24 oz — $18</div>
+          <div class="pill">3 ingredientes incluidos</div>
+          <div class="pill">Adicionales desde +$2</div>
+          <div class="pill">Hecho fresco</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- CREA TU PROPIO JUGO -->
-    <section id="custom-juice" class="custom-section">
-      <div class="container">
-        <h2>Crea tu propio jugo</h2>
-        <p class="section-subtitle">
-          Escoge tus ingredientes favoritos y añade tu jugo personalizado al pedido. Aquí no se envía todavía: primero armas todo y al final seleccionas pickup o envío.
-        </p>
+  <section id="crear">
+    <div class="container">
+      <h2 class="section-title">Crea tu Poción</h2>
+      <p class="section-subtitle">
+        Escoge tu tamaño, selecciona los ingredientes incluidos y añade extras si deseas.
+        Tu orden se prepara fresca y personalizada a tu gusto.
+      </p>
 
-        <div class="custom-form-wrap">
-          <form id="customJuiceForm" class="custom-form-grid" onsubmit="return false;">
-            <div class="form-row">
-              <div>
-                <label for="tamano">Tamaño</label>
-                <select id="tamano" onchange="calcularPrecioEstimado()">
-                  <option value="">Selecciona un tamaño</option>
-                  <option value="12 oz">12 oz</option>
-                  <option value="16 oz">16 oz</option>
-                  <option value="18 oz">18 oz</option>
-                  <option value="Shot">Shot</option>
-                </select>
-              </div>
+      <div class="builder-layout">
+        <div class="builder-card">
+          <div class="block">
+            <h3>1. Escoge tu tamaño</h3>
+            <p class="helper">Cada tamaño incluye 3 ingredientes.</p>
 
-              <div>
-                <label for="cantidad">Cantidad</label>
-                <select id="cantidad" onchange="calcularPrecioEstimado()">
-                  <option value="">Selecciona cantidad</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10+">10+</option>
-                </select>
-              </div>
+            <div class="size-options">
+              <label class="size-card active" data-size-card>
+                <input type="radio" name="size" value="12 oz" data-price="12" checked />
+                <div class="size-title">12 oz</div>
+                <div class="size-price">$12</div>
+                <div class="ingredient-price">Ideal para algo ligero</div>
+              </label>
+
+              <label class="size-card" data-size-card>
+                <input type="radio" name="size" value="16 oz" data-price="15" />
+                <div class="size-title">16 oz</div>
+                <div class="size-price">$15</div>
+                <div class="ingredient-price">Balance perfecto</div>
+                <span class="tag">Más popular</span>
+              </label>
+
+              <label class="size-card" data-size-card>
+                <input type="radio" name="size" value="24 oz" data-price="18" />
+                <div class="size-title">24 oz</div>
+                <div class="size-price">$18</div>
+                <div class="ingredient-price">Para una experiencia más completa</div>
+              </label>
             </div>
-
-            <div class="price-estimate-box">
-              <p class="price-estimate-label">Precio estimado</p>
-              <p class="price-estimate-value" id="precioEstimado">Selecciona tamaño y cantidad</p>
-              <p class="price-estimate-note">Este precio es una referencia para tu jugo personalizado.</p>
-            </div>
-
-            <div>
-              <label>Ingredientes</label>
-              <div class="ingredients-checklist">
-                <label class="ingredient-option"><input type="checkbox" value="Manzana verde" /> Manzana verde</label>
-                <label class="ingredient-option"><input type="checkbox" value="Manzana roja" /> Manzana roja</label>
-                <label class="ingredient-option"><input type="checkbox" value="Piña" /> Piña</label>
-                <label class="ingredient-option"><input type="checkbox" value="Jengibre" /> Jengibre</label>
-                <label class="ingredient-option"><input type="checkbox" value="Cúrcuma" /> Cúrcuma</label>
-                <label class="ingredient-option"><input type="checkbox" value="Zanahoria" /> Zanahoria</label>
-                <label class="ingredient-option"><input type="checkbox" value="Remolacha" /> Remolacha</label>
-                <label class="ingredient-option"><input type="checkbox" value="Espinaca" /> Espinaca</label>
-                <label class="ingredient-option"><input type="checkbox" value="Fresas" /> Fresas</label>
-                <label class="ingredient-option"><input type="checkbox" value="Mango" /> Mango</label>
-                <label class="ingredient-option"><input type="checkbox" value="Celery" /> Celery</label>
-                <label class="ingredient-option"><input type="checkbox" value="Guineo" /> Guineo</label>
-                <label class="ingredient-option"><input type="checkbox" value="Limón" /> Limón</label>
-                <label class="ingredient-option"><input type="checkbox" value="China" /> China</label>
-                <label class="ingredient-option"><input type="checkbox" value="Apio" /> Apio</label>
-                <label class="ingredient-option"><input type="checkbox" value="Pepino" /> Pepino</label>
-              </div>
-            </div>
-
-            <div>
-              <label for="extraIngredient">Otro ingrediente</label>
-              <input type="text" id="extraIngredient" placeholder="Ej. pera, kiwi, avena..." />
-            </div>
-
-            <div>
-              <label for="notasCustom">Notas del jugo personalizado</label>
-              <textarea id="notasCustom" rows="4" placeholder="Ej. sin jengibre, más piña, poco dulce..."></textarea>
-            </div>
-
-            <div class="custom-buttons">
-              <button type="button" class="btn-primary" onclick="addCustomJuiceToOrder()">Añadir jugo personalizado</button>
-              <button type="button" class="btn-outline" onclick="resetCustomJuice()">Limpiar esta sección</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- TU PEDIDO -->
-    <section id="pedido" class="order-section">
-      <div class="container">
-        <h2>Tu pedido</h2>
-        <p class="section-subtitle">
-          Aquí se irá acumulando todo lo que quieras ordenar. Cuando termines, escoges pickup o envío y envías tu orden completa por WhatsApp.
-        </p>
-
-        <div class="order-summary-card">
-          <p class="summary-topline">Puedes mezclar jugos favoritos, cajas y jugos personalizados en una sola orden.</p>
-
-          <div id="orderList" class="order-list"></div>
-
-          <div id="emptyOrder" class="empty-order">
-            Todavía no has añadido productos a tu pedido.
           </div>
 
-          <div class="summary-total" id="summaryTotal">
-            Total estimado: $0.00
+          <div class="block">
+            <h3>2. Escoge tus 3 ingredientes incluidos</h3>
+            <p class="helper">Selecciona hasta 3. Si quieres añadir más, se contarán como ingredientes adicionales.</p>
+
+            <div class="ingredients-grid">
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Manzana" />
+                <div class="ingredient-name">Manzana</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Zanahoria" />
+                <div class="ingredient-name">Zanahoria</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Limón" />
+                <div class="ingredient-name">Limón</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="China" />
+                <div class="ingredient-name">China</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Piña" />
+                <div class="ingredient-name">Piña</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Apio" />
+                <div class="ingredient-name">Apio</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Espinaca" />
+                <div class="ingredient-name">Espinaca</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="included-ingredient" value="Remolacha" />
+                <div class="ingredient-name">Remolacha</div>
+                <div class="ingredient-price">Incluido</div>
+              </label>
+            </div>
+
+            <div class="counter">
+              Seleccionados: <strong id="includedCount">0</strong> / 3
+            </div>
+          </div>
+
+          <div class="block" id="ingredientes">
+            <h3>3. Añade ingredientes adicionales</h3>
+            <p class="helper">Ingredientes adicionales desde +$2.</p>
+
+            <div class="ingredients-grid">
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Jengibre" data-price="3" />
+                <div class="ingredient-name">Jengibre</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $3</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Cúrcuma" data-price="3" />
+                <div class="ingredient-name">Cúrcuma</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $3</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Manzana" data-price="2" />
+                <div class="ingredient-name">Manzana</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $2</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Zanahoria" data-price="2" />
+                <div class="ingredient-name">Zanahoria</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $2</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Limón" data-price="2" />
+                <div class="ingredient-name">Limón</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $2</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="China" data-price="2" />
+                <div class="ingredient-name">China</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $2</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Piña" data-price="2" />
+                <div class="ingredient-name">Piña</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $2</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Apio" data-price="3" />
+                <div class="ingredient-name">Apio</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $3</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Espinaca" data-price="3" />
+                <div class="ingredient-name">Espinaca</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $3</div>
+              </label>
+
+              <label class="ingredient-option" data-ingredient-card>
+                <input type="checkbox" class="extra-ingredient" value="Remolacha" data-price="3" />
+                <div class="ingredient-name">Remolacha</div>
+                <div class="ingredient-price">Adicional</div>
+                <div class="ingredient-note">+ $3</div>
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class="pickup-shipping-wrap">
-          <div class="pickup-grid">
-            <div class="form-row">
-              <div>
-                <label for="customerName">Tu nombre</label>
-                <input type="text" id="customerName" placeholder="Escribe tu nombre" />
-              </div>
+        <div class="summary-card" id="ordenar">
+          <h3>Resumen de tu orden</h3>
 
-              <div>
-                <label for="customerPhone">Tu teléfono</label>
-                <input type="text" id="customerPhone" placeholder="Ej. 787-000-0000" />
-              </div>
+          <div class="summary-box">
+            <div class="summary-row">
+              <span>Tamaño</span>
+              <span id="summarySize">12 oz</span>
             </div>
-
-            <div class="form-row">
-              <div>
-                <label for="entregaTipoFinal">Método de entrega</label>
-                <select id="entregaTipoFinal" onchange="actualizarEntregaFinal(); updateSummaryTotal();">
-                  <option value="">Selecciona una opción</option>
-                  <option value="Pickup en Montehiedra Mall">Pickup en Montehiedra Mall</option>
-                  <option value="Envío por correo">Envío por correo</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="fechaEntregaFinal">Fecha deseada</label>
-                <input type="date" id="fechaEntregaFinal" />
-              </div>
+            <div class="summary-row">
+              <span>Precio base</span>
+              <span id="summaryBase">$12</span>
             </div>
-
-            <div id="deliveryInfoBoxFinal" style="display:none;">
-              <label id="deliveryLabelFinal" for="lugarEntregaFinal">Punto de entrega</label>
-              <input type="text" id="lugarEntregaFinal" placeholder="" />
-              <p id="deliveryHelpTextFinal" class="delivery-help-text"></p>
+            <div class="summary-row">
+              <span>Ingredientes incluidos</span>
+              <span id="summaryIncluded">Ninguno</span>
             </div>
-
-            <div>
-              <label for="orderNotesFinal">Notas adicionales del pedido</label>
-              <textarea id="orderNotesFinal" rows="4" placeholder="Ej. preferencia de entrega, instrucciones, combinación especial..."></textarea>
+            <div class="summary-row">
+              <span>Ingredientes adicionales</span>
+              <span id="summaryExtras">Ninguno</span>
             </div>
-
-            <div class="final-order-actions">
-              <button type="button" class="btn-primary" onclick="sendWholeOrderToWhatsApp()">Enviar pedido por WhatsApp</button>
-              <button type="button" class="btn-outline" onclick="clearWholeOrder()">Vaciar pedido</button>
-            </div>
-
-            <p class="form-note">
-              El pickup es en Montehiedra Mall los lunes de 3:00 p.m. a 6:00 p.m. El envío por correo tarda de 48 a 72 horas.
-            </p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- CTA FINAL -->
-    <section class="final-cta-wrap">
-      <div class="container">
-        <div class="final-cta">
-          <h2>¿Lista para ordenar?</h2>
-          <p>
-            Arma tu pedido completo y envíalo por WhatsApp cuando estés lista.
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="summaryTotal">$12</span>
+          </div>
+
+          <p class="notice">
+            Todos los tamaños incluyen 3 ingredientes.
+            Los ingredientes adicionales se suman automáticamente al total.
           </p>
-          <a href="#pedido" class="btn-primary">Ver mi pedido</a>
+
+          <a id="whatsappBtn" class="btn btn-primary" href="#" target="_blank" style="width:100%; margin-top:18px;">
+            Ordenar por WhatsApp
+          </a>
+
+          <ul class="mini-list">
+            <li>Personalizado a tu gusto</li>
+            <li>Hecho fresco</li>
+            <li>Ingredientes seleccionados por ti</li>
+          </ul>
         </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      La Poción ✨ · Jugos que se sienten bien
+    </div>
+  </footer>
 
   <script>
-    const orderItems = [];
+    const WHATSAPP_NUMBER = "17874226548";
 
-    function formatMoney(value) {
-      return "$" + Number(value).toFixed(2);
+    const sizeCards = document.querySelectorAll("[data-size-card]");
+    const sizeInputs = document.querySelectorAll('input[name="size"]');
+    const includedInputs = document.querySelectorAll(".included-ingredient");
+    const extraInputs = document.querySelectorAll(".extra-ingredient");
+
+    const includedCount = document.getElementById("includedCount");
+    const summarySize = document.getElementById("summarySize");
+    const summaryBase = document.getElementById("summaryBase");
+    const summaryIncluded = document.getElementById("summaryIncluded");
+    const summaryExtras = document.getElementById("summaryExtras");
+    const summaryTotal = document.getElementById("summaryTotal");
+    const whatsappBtn = document.getElementById("whatsappBtn");
+
+    function updateSizeCards() {
+      sizeCards.forEach(card => {
+        const input = card.querySelector('input[name="size"]');
+        card.classList.toggle("active", input.checked);
+      });
     }
 
-    function getFavoritePrice(name, size) {
-      const priceMap = {
-        "Glow Verde": { "Shot": 4, "12 oz": 7, "16 oz": 9 },
-        "Golden Boost": { "Shot": 5, "12 oz": 8, "16 oz": 10 },
-        "Berry Power": { "Shot": 5, "12 oz": 8, "16 oz": 10 },
-        "Tropical": { "Shot": 4, "12 oz": 7, "16 oz": 9 }
+    function updateIngredientStyles() {
+      document.querySelectorAll("[data-ingredient-card]").forEach(card => {
+        const input = card.querySelector("input[type='checkbox']");
+        if (input && input.checked) {
+          card.classList.add("selected");
+        } else {
+          card.classList.remove("selected");
+        }
+      });
+    }
+
+    function getSelectedSize() {
+      const selected = document.querySelector('input[name="size"]:checked');
+      return {
+        name: selected.value,
+        price: Number(selected.dataset.price)
       };
-
-      return priceMap[name][size] || 0;
     }
 
-    function getCustomPrice(size) {
-      const customPrices = {
-        "Shot": 4,
-        "12 oz": 7,
-        "16 oz": 9,
-        "18 oz": 10
-      };
-
-      return customPrices[size] || 0;
+    function getIncludedIngredients() {
+      return Array.from(includedInputs)
+        .filter(input => input.checked)
+        .map(input => input.value);
     }
 
-    function calculateShippingCostFromItems() {
-      const deliveryType = document.getElementById("entregaTipoFinal").value;
-      if (deliveryType !== "Envío por correo") return 0;
+    function getExtraIngredients() {
+      return Array.from(extraInputs)
+        .filter(input => input.checked)
+        .map(input => ({
+          name: input.value,
+          price: Number(input.dataset.price)
+        }));
+    }
 
-      let countForShipping = 0;
+    function updateSummary() {
+      const size = getSelectedSize();
+      const included = getIncludedIngredients();
+      const extras = getExtraIngredients();
 
-      orderItems.forEach(item => {
-        if (item.shippingUnits) {
-          countForShipping += item.shippingUnits;
+      const extrasTotal = extras.reduce((sum, item) => sum + item.price, 0);
+      const total = size.price + extrasTotal;
+
+      summarySize.textContent = size.name;
+      summaryBase.textContent = `$${size.price}`;
+      summaryIncluded.textContent = included.length ? included.join(", ") : "Ninguno";
+      summaryExtras.textContent = extras.length
+        ? extras.map(item => `${item.name} (+$${item.price})`).join(", ")
+        : "Ninguno";
+      summaryTotal.textContent = `$${total}`;
+      includedCount.textContent = included.length;
+
+      const includedText = included.length ? included.join(", ") : "Ninguno";
+      const extrasText = extras.length
+        ? extras.map(item => `${item.name} (+$${item.price})`).join(", ")
+        : "Ninguno";
+
+      const message =
+`Hola! Quiero ordenar mi jugo de La Poción ✨
+
+Tamaño: ${size.name}
+Precio base: $${size.price}
+
+Ingredientes incluidos: ${includedText}
+Ingredientes adicionales: ${extrasText}
+
+Total: $${total}`;
+
+      whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+
+    includedInputs.forEach(input => {
+      input.addEventListener("change", () => {
+        const checkedIncluded = getIncludedIngredients();
+
+        if (checkedIncluded.length > 3) {
+          input.checked = false;
+          alert("Puedes escoger hasta 3 ingredientes incluidos.");
         }
+
+        updateIngredientStyles();
+        updateSummary();
       });
+    });
 
-      if (countForShipping === 0) return 0;
-      if (countForShipping <= 4) return 5;
-      if (countForShipping <= 9) return 7;
-      return 0;
-    }
-
-    function updateOrderUI() {
-      const orderList = document.getElementById("orderList");
-      const emptyOrder = document.getElementById("emptyOrder");
-
-      orderList.innerHTML = "";
-
-      if (orderItems.length === 0) {
-        emptyOrder.style.display = "block";
-      } else {
-        emptyOrder.style.display = "none";
-      }
-
-      orderItems.forEach((item, index) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "order-item";
-
-        itemDiv.innerHTML = `
-          <div>
-            <strong>${item.title}</strong>
-            <small>${item.details}</small>
-          </div>
-          <div style="text-align:right; min-width:90px;">
-            <strong>${formatMoney(item.total)}</strong>
-            <button class="remove-btn" type="button" onclick="removeOrderItem(${index})">Eliminar</button>
-          </div>
-        `;
-
-        orderList.appendChild(itemDiv);
+    extraInputs.forEach(input => {
+      input.addEventListener("change", () => {
+        updateIngredientStyles();
+        updateSummary();
       });
+    });
 
-      updateSummaryTotal();
-    }
-
-    function updateSummaryTotal() {
-      const summaryTotal = document.getElementById("summaryTotal");
-      const subtotal = orderItems.reduce((sum, item) => sum + item.total, 0);
-      const deliveryType = document.getElementById("entregaTipoFinal").value;
-      const shipping = calculateShippingCostFromItems();
-      let text = `Total estimado: ${formatMoney(subtotal)}`;
-
-      if (deliveryType === "Envío por correo") {
-        if (shipping > 0) {
-          text = `Total estimado: ${formatMoney(subtotal + shipping)} (incluye envío estimado)`;
-        } else {
-          text = `Total estimado: ${formatMoney(subtotal)} + envío a cotizar`;
-        }
-      }
-
-      summaryTotal.textContent = text;
-    }
-
-    function removeOrderItem(index) {
-      orderItems.splice(index, 1);
-      updateOrderUI();
-    }
-
-    function addFavoriteProduct(name, sizeId, qtyId) {
-      const size = document.getElementById(sizeId).value;
-      const quantity = parseInt(document.getElementById(qtyId).value, 10);
-      const unitPrice = getFavoritePrice(name, size);
-      const total = unitPrice * quantity;
-
-      orderItems.push({
-        type: "favorite",
-        title: `${name} · ${size}`,
-        details: `Cantidad: ${quantity}`,
-        total,
-        shippingUnits: quantity
+    sizeInputs.forEach(input => {
+      input.addEventListener("change", () => {
+        updateSizeCards();
+        updateSummary();
       });
+    });
 
-      updateOrderUI();
-      alert("Añadido al pedido.");
-    }
-
-    function addBoxToOrder() {
-      const boxValue = document.getElementById("boxType").value;
-      const boxQuantity = parseInt(document.getElementById("boxQuantity").value, 10);
-      const boxMix = document.getElementById("boxMix").value.trim();
-
-      if (!boxValue) {
-        alert("Por favor, selecciona una caja.");
-        return;
-      }
-
-      if (!boxMix) {
-        alert("Por favor, escribe el mix o sabores que quieres en la caja.");
-        return;
-      }
-
-      const [boxName, jugosCountLabel, priceText] = boxValue.split("|");
-      const unitPrice = parseFloat(priceText);
-      const jugosCount = parseInt(jugosCountLabel, 10);
-      const total = unitPrice * boxQuantity;
-
-      orderItems.push({
-        type: "box",
-        title: `${boxName} · ${jugosCountLabel}`,
-        details: `Cantidad de cajas: ${boxQuantity} · Mix: ${boxMix}`,
-        total,
-        shippingUnits: jugosCount * boxQuantity
-      });
-
-      document.getElementById("boxType").value = "";
-      document.getElementById("boxQuantity").value = "1";
-      document.getElementById("boxMix").value = "";
-
-      updateOrderUI();
-      alert("Caja añadida al pedido.");
-    }
-
-    function calcularPrecioEstimado() {
-      const tamano = document.getElementById("tamano").value;
-      const cantidad = document.getElementById("cantidad").value;
-      const precioEstimado = document.getElementById("precioEstimado");
-
-      if (!tamano || !cantidad) {
-        precioEstimado.textContent = "Selecciona tamaño y cantidad";
-        return "";
-      }
-
-      if (cantidad === "10+") {
-        precioEstimado.textContent = "Cotización especial";
-        return "Cotización especial";
-      }
-
-      const qty = parseInt(cantidad, 10);
-      const unitPrice = getCustomPrice(tamano);
-      const total = qty * unitPrice;
-      const text = formatMoney(total);
-
-      precioEstimado.textContent = text;
-      return text;
-    }
-
-    function addCustomJuiceToOrder() {
-      const tamano = document.getElementById("tamano").value;
-      const cantidad = document.getElementById("cantidad").value;
-      const extraIngredient = document.getElementById("extraIngredient").value.trim();
-      const notas = document.getElementById("notasCustom").value.trim();
-
-      const ingredientesSeleccionados = Array.from(
-        document.querySelectorAll('.ingredients-checklist input[type="checkbox"]:checked')
-      ).map(item => item.value);
-
-      if (!tamano) {
-        alert("Por favor, selecciona un tamaño.");
-        return;
-      }
-
-      if (!cantidad) {
-        alert("Por favor, selecciona la cantidad.");
-        return;
-      }
-
-      if (ingredientesSeleccionados.length === 0 && !extraIngredient) {
-        alert("Por favor, selecciona al menos un ingrediente o añade otro ingrediente.");
-        return;
-      }
-
-      let detailParts = [];
-
-      if (ingredientesSeleccionados.length > 0) {
-        detailParts.push("Ingredientes: " + ingredientesSeleccionados.join(", "));
-      }
-
-      if (extraIngredient) {
-        detailParts.push("Otro ingrediente: " + extraIngredient);
-      }
-
-      if (notas) {
-        detailParts.push("Notas: " + notas);
-      }
-
-      let total = 0;
-
-      if (cantidad === "10+") {
-        total = 0;
-      } else {
-        total = getCustomPrice(tamano) * parseInt(cantidad, 10);
-      }
-
-      orderItems.push({
-        type: "custom",
-        title: `Jugo personalizado · ${tamano}`,
-        details: `Cantidad: ${cantidad} · ${detailParts.join(" · ")}`,
-        total,
-        shippingUnits: cantidad === "10+" ? 0 : parseInt(cantidad, 10)
-      });
-
-      resetCustomJuice();
-      updateOrderUI();
-      alert("Jugo personalizado añadido al pedido.");
-    }
-
-    function resetCustomJuice() {
-      document.getElementById("tamano").value = "";
-      document.getElementById("cantidad").value = "";
-      document.getElementById("extraIngredient").value = "";
-      document.getElementById("notasCustom").value = "";
-      document.querySelectorAll('.ingredients-checklist input[type="checkbox"]').forEach(el => el.checked = false);
-      document.getElementById("precioEstimado").textContent = "Selecciona tamaño y cantidad";
-    }
-
-    function actualizarEntregaFinal() {
-      const entregaTipo = document.getElementById("entregaTipoFinal").value;
-      const deliveryInfoBox = document.getElementById("deliveryInfoBoxFinal");
-      const deliveryLabel = document.getElementById("deliveryLabelFinal");
-      const lugarEntrega = document.getElementById("lugarEntregaFinal");
-      const deliveryHelpText = document.getElementById("deliveryHelpTextFinal");
-
-      if (!entregaTipo) {
-        deliveryInfoBox.style.display = "none";
-        lugarEntrega.value = "";
-        lugarEntrega.placeholder = "";
-        deliveryHelpText.textContent = "";
-        updateSummaryTotal();
-        return;
-      }
-
-      deliveryInfoBox.style.display = "block";
-
-      if (entregaTipo === "Pickup en Montehiedra Mall") {
-        deliveryLabel.textContent = "Punto de entrega";
-        lugarEntrega.value = "Montehiedra Mall";
-        lugarEntrega.placeholder = "Montehiedra Mall";
-        deliveryHelpText.textContent = "Las entregas en pickup serán los lunes de 3:00 p.m. a 6:00 p.m. en Montehiedra Mall.";
-      } else if (entregaTipo === "Envío por correo") {
-        deliveryLabel.textContent = "Dirección de envío";
-        lugarEntrega.value = "";
-        lugarEntrega.placeholder = "Escribe tu dirección completa";
-        deliveryHelpText.textContent = "Los envíos por correo tardan aproximadamente de 48 a 72 horas. El costo estimado se añade al total.";
-      }
-
-      updateSummaryTotal();
-    }
-
-    function clearWholeOrder() {
-      orderItems.length = 0;
-      updateOrderUI();
-
-      document.getElementById("customerName").value = "";
-      document.getElementById("customerPhone").value = "";
-      document.getElementById("entregaTipoFinal").value = "";
-      document.getElementById("fechaEntregaFinal").value = "";
-      document.getElementById("lugarEntregaFinal").value = "";
-      document.getElementById("orderNotesFinal").value = "";
-      document.getElementById("deliveryInfoBoxFinal").style.display = "none";
-      document.getElementById("deliveryHelpTextFinal").textContent = "";
-      document.getElementById("lugarEntregaFinal").placeholder = "";
-    }
-
-    function sendWholeOrderToWhatsApp() {
-      const numeroWhatsApp = "17874226548";
-
-      if (orderItems.length === 0) {
-        alert("Tu pedido está vacío.");
-        return;
-      }
-
-      const customerName = document.getElementById("customerName").value.trim();
-      const customerPhone = document.getElementById("customerPhone").value.trim();
-      const entregaTipo = document.getElementById("entregaTipoFinal").value;
-      const fechaEntrega = document.getElementById("fechaEntregaFinal").value;
-      const lugarEntrega = document.getElementById("lugarEntregaFinal").value.trim();
-      const orderNotes = document.getElementById("orderNotesFinal").value.trim();
-
-      if (!customerName) {
-        alert("Por favor, escribe tu nombre.");
-        return;
-      }
-
-      if (!entregaTipo) {
-        alert("Por favor, selecciona un método de entrega.");
-        return;
-      }
-
-      if (entregaTipo === "Envío por correo" && !lugarEntrega) {
-        alert("Por favor, escribe la dirección de envío.");
-        return;
-      }
-
-      const subtotal = orderItems.reduce((sum, item) => sum + item.total, 0);
-      const shipping = calculateShippingCostFromItems();
-      const finalTotal = subtotal + shipping;
-
-      let mensaje = "Hola, quiero ordenar de La Poción.%0A%0A";
-      mensaje += "*Nombre:* " + customerName + "%0A";
-
-      if (customerPhone) {
-        mensaje += "*Teléfono:* " + customerPhone + "%0A";
-      }
-
-      mensaje += "%0A*Mi pedido:*%0A";
-
-      orderItems.forEach((item, index) => {
-        mensaje += `${index + 1}. *${item.title}*%0A`;
-        mensaje += `${item.details}%0A`;
-        if (item.total > 0) {
-          mensaje += `Subtotal: ${formatMoney(item.total)}%0A`;
-        } else {
-          mensaje += `Subtotal: Cotización especial%0A`;
-        }
-        mensaje += "%0A";
-      });
-
-      mensaje += "*Método de entrega:* " + entregaTipo + "%0A";
-
-      if (entregaTipo === "Pickup en Montehiedra Mall") {
-        mensaje += "*Punto de entrega:* Montehiedra Mall%0A";
-        mensaje += "*Horario de pickup:* Lunes de 3:00 p.m. a 6:00 p.m.%0A";
-      }
-
-      if (entregaTipo === "Envío por correo") {
-        mensaje += "*Dirección de envío:* " + lugarEntrega + "%0A";
-        mensaje += "*Tiempo estimado de entrega:* 48 a 72 horas%0A";
-        if (shipping > 0) {
-          mensaje += "*Envío estimado:* " + formatMoney(shipping) + "%0A";
-        } else {
-          mensaje += "*Envío:* A cotizar%0A";
-        }
-      }
-
-      if (fechaEntrega) {
-        mensaje += "*Fecha deseada:* " + fechaEntrega + "%0A";
-      }
-
-      if (orderNotes) {
-        mensaje += "*Notas adicionales:* " + orderNotes + "%0A";
-      }
-
-      mensaje += "%0A*Total estimado:* " + formatMoney(finalTotal) + "%0A";
-      mensaje += "%0AGracias.";
-
-      const url = "https://wa.me/" + numeroWhatsApp + "?text=" + encodeURIComponent(decodeURIComponent(mensaje));
-      window.open(url, "_blank");
-    }
-
-    updateOrderUI();
+    updateSizeCards();
+    updateIngredientStyles();
+    updateSummary();
   </script>
-
 </body>
 </html>
