@@ -5,472 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Poción | Jugos que se sienten bien</title>
   <style>
-    :root {
-      --bg: #f7f3ea;
-      --bg-soft: #fffaf2;
-      --card: rgba(255,255,255,0.88);
-      --text: #2c2a26;
-      --muted: #6d665b;
-      --green: #5f7d4e;
-      --green-dark: #47603b;
-      --line: rgba(44, 42, 38, 0.10);
-      --shadow: 0 10px 30px rgba(0,0,0,0.08);
-      --radius: 22px;
-    }
-
     * {
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(215,180,106,0.18), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(95,125,78,0.16), transparent 30%),
-        var(--bg);
-      color: var(--text);
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 22px 0;
-      position: sticky;
-      top: 0;
-      backdrop-filter: blur(12px);
-      background: rgba(247,243,234,0.78);
-      border-bottom: 1px solid var(--line);
-      z-index: 20;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      color: var(--green-dark);
-    }
-
-    .nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-size: 0.98rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.25s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-
-    .btn-primary:hover {
-      background: var(--green-dark);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.7);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .hero {
-      padding: 70px 0 40px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-card,
-    .info-card,
-    .builder-card,
-    .summary-card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.6);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card {
-      padding: 42px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 8px 14px;
-      background: rgba(215,180,106,0.18);
-      color: #8d6c28;
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0 0 14px;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.05;
-      color: var(--green-dark);
-    }
-
-    .hero p {
-      margin: 0 0 18px;
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 58ch;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-
-    .info-card {
-      padding: 28px;
-    }
-
-    .info-card h3 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      color: var(--green-dark);
-      font-size: 1.25rem;
-    }
-
-    .pill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: var(--bg-soft);
-      border: 1px solid var(--line);
-      font-size: 0.94rem;
-      color: var(--text);
-    }
-
-    section {
-      padding: 26px 0;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      margin: 0 0 10px;
-      color: var(--green-dark);
-    }
-
-    .section-subtitle {
-      margin: 0 0 26px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .builder-layout {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .builder-card {
-      padding: 28px;
-    }
-
-    .summary-card {
-      padding: 28px;
-      position: sticky;
-      top: 96px;
-    }
-
-    .block {
-      margin-bottom: 30px;
-    }
-
-    .block:last-child {
-      margin-bottom: 0;
-    }
-
-    .block h3 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
-      color: var(--green-dark);
-    }
-
-    .helper {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .size-options {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .size-card {
-      border: 1.5px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      background: #fff;
-      cursor: pointer;
-      transition: 0.25s ease;
-      position: relative;
-    }
-
-    .size-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(95,125,78,0.45);
-    }
-
-    .size-card input {
-      display: none;
-    }
-
-    .size-card.active {
-      border-color: var(--green);
-      background: rgba(95,125,78,0.08);
-      box-shadow: 0 8px 20px rgba(95,125,78,0.12);
-    }
-
-    .size-title {
-      font-size: 1.12rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .size-price {
-      font-size: 1rem;
-      color: var(--green-dark);
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 0.78rem;
-      background: rgba(215,180,106,0.22);
-      color: #8d6c28;
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-    }
-
-    .ingredients-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .ingredient-option {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px 14px 14px 48px;
-      position: relative;
-      cursor: pointer;
-      transition: 0.2s ease;
-      min-height: 76px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .ingredient-option:hover {
-      border-color: rgba(95,125,78,0.45);
-      transform: translateY(-1px);
-    }
-
-    .ingredient-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .ingredient-option::before {
-      content: "";
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      border: 1.5px solid rgba(95,125,78,0.45);
-      background: #fff;
-    }
-
-    .ingredient-option.selected::before {
-      background: var(--green);
-      border-color: var(--green);
-      box-shadow: inset 0 0 0 4px #fff;
-    }
-
-    .ingredient-name {
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .ingredient-price {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .ingredient-note {
-      font-size: 0.82rem;
-      color: #9b6c28;
-    }
-
-    .counter {
-      margin-top: 14px;
-      font-size: 0.94rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .counter strong {
-      color: var(--green-dark);
-    }
-
-    .summary-card h3 {
-      margin-top: 0;
-      font-size: 1.35rem;
-      color: var(--green-dark);
-    }
-
-    .summary-box {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      margin: 18px 0;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 0;
-      border-bottom: 1px dashed rgba(44,42,38,0.1);
-      font-size: 0.96rem;
-    }
-
-    .summary-row:last-child {
-      border-bottom: none;
-    }
-
-    .summary-row span:last-child {
-      font-weight: 700;
-    }
-
-    .summary-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--green-dark);
-    }
-
-    .notice {
-      margin-top: 14px;
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f5efe6 0%, #fffaf4 100%);
+      color: #3e2f26;
       line-height: 1.6;
     }
 
-    .mini-list {
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.7;
+    header {
+      text-align: center;
+      padding: 70px 20px 50px;
+      background: linear-gradient(135deg, #8fbf8f, #d7e8c8, #f3e4b5);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #2f4f2f;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #355e3b;
+      font-size: 2rem;
+    }
+
+    .features,
+    .products,
+    .box-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #2f4f2f;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-top: 12px;
+      color: #8b5e3c;
+      font-size: 1.05rem;
+    }
+
+    .highlight {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      margin-top: 20px;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    input, textarea, select {
+      padding: 14px;
+      border: 1px solid #d8cfc3;
+      border-radius: 12px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button, .whatsapp-btn {
+      background: #355e3b;
+      color: white;
+      border: none;
+      padding: 15px 22px;
+      border-radius: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: 0.25s ease;
+    }
+
+    button:hover, .whatsapp-btn:hover {
+      background: #2b4b30;
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .small-text {
       font-size: 0.95rem;
+      color: #6a5b4f;
+      margin-top: 10px;
+    }
+
+    .footer-cta {
+      text-align: center;
+      padding: 30px 20px 70px;
     }
 
     footer {
-      padding: 36px 0 56px;
       text-align: center;
-      color: var(--muted);
+      padding: 30px 20px;
+      background: #f0e7da;
+      color: #5f5247;
       font-size: 0.95rem;
     }
 
-    @media (max-width: 960px) {
-      .hero-grid,
-      .builder-layout {
-        grid-template-columns: 1fr;
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.3rem;
       }
 
-      .summary-card {
-        position: static;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .size-options,
-      .ingredients-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card,
-      .info-card,
-      .builder-card,
-      .summary-card {
-        padding: 22px;
-      }
-
-      .nav {
-        flex-direction: column;
-        align-items: flex-start;
+      h2 {
+        font-size: 1.7rem;
       }
     }
   </style>
@@ -478,402 +163,204 @@
 <body>
 
   <header>
-    <div class="container nav">
-      <div class="brand">La Poción ✨</div>
-      <div class="nav-links">
-        <a href="#crear">Crea tu Poción</a>
-        <a href="#ingredientes">Ingredientes</a>
-        <a href="#ordenar" class="btn btn-primary">Ordenar</a>
-      </div>
-    </div>
+    <h1>La Poción</h1>
+    <p>Jugos que se sienten bien. Ingredientes frescos, mezclas funcionales y sabores que puedes disfrutar a tu manera.</p>
   </header>
 
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-card">
-        <div class="eyebrow">Jugos que se sienten bien</div>
-        <h1>Tu jugo, a tu manera.</h1>
-        <p>
-          En <strong>La Poción</strong> puedes crear tu propia mezcla con ingredientes frescos,
-          sabores vibrantes y ese toque especial que hace cada jugo único.
-        </p>
-        <p>
-          Escoge tu tamaño, selecciona tus ingredientes y personaliza tu orden.
-          Cada tamaño incluye <strong>3 ingredientes</strong> y puedes añadir más
-          por un costo adicional.
-        </p>
-        <div class="hero-actions">
-          <a href="#crear" class="btn btn-primary">Crear mi Poción</a>
-          <a href="#ingredientes" class="btn btn-secondary">Ver ingredientes</a>
-        </div>
+  <section>
+    <h2>¿Por qué La Poción?</h2>
+    <div class="features">
+      <div class="card">
+        <h3>Ingredientes frescos</h3>
+        <p>Preparados con frutas, vegetales y raíces seleccionadas.</p>
       </div>
-
-      <div class="info-card">
-        <h3>Así funciona</h3>
-        <div class="pill-list">
-          <div class="pill">12 oz — $12</div>
-          <div class="pill">16 oz — $15</div>
-          <div class="pill">24 oz — $18</div>
-          <div class="pill">3 ingredientes incluidos</div>
-          <div class="pill">Adicionales desde +$2</div>
-          <div class="pill">Hecho fresco</div>
-        </div>
+      <div class="card">
+        <h3>Personalización</h3>
+        <p>Puedes escoger tus sabores favoritos o armar tu propia caja.</p>
+      </div>
+      <div class="card">
+        <h3>Pago fácil</h3>
+        <p>Aceptamos ATH Móvil para que ordenar sea más cómodo.</p>
+      </div>
+      <div class="card">
+        <h3>Recogido o envío</h3>
+        <p>Disponible para recogido local o envío dentro de Puerto Rico.</p>
       </div>
     </div>
   </section>
 
-  <section id="crear">
-    <div class="container">
-      <h2 class="section-title">Crea tu Poción</h2>
-      <p class="section-subtitle">
-        Escoge tu tamaño, selecciona los ingredientes incluidos y añade extras si deseas.
-        Tu orden se prepara fresca y personalizada a tu gusto.
-      </p>
-
-      <div class="builder-layout">
-        <div class="builder-card">
-          <div class="block">
-            <h3>1. Escoge tu tamaño</h3>
-            <p class="helper">Cada tamaño incluye 3 ingredientes.</p>
-
-            <div class="size-options">
-              <label class="size-card active" data-size-card>
-                <input type="radio" name="size" value="12 oz" data-price="12" checked />
-                <div class="size-title">12 oz</div>
-                <div class="size-price">$12</div>
-                <div class="ingredient-price">Ideal para algo ligero</div>
-              </label>
-
-              <label class="size-card" data-size-card>
-                <input type="radio" name="size" value="16 oz" data-price="15" />
-                <div class="size-title">16 oz</div>
-                <div class="size-price">$15</div>
-                <div class="ingredient-price">Balance perfecto</div>
-                <span class="tag">Más popular</span>
-              </label>
-
-              <label class="size-card" data-size-card>
-                <input type="radio" name="size" value="24 oz" data-price="18" />
-                <div class="size-title">24 oz</div>
-                <div class="size-price">$18</div>
-                <div class="ingredient-price">Para una experiencia más completa</div>
-              </label>
-            </div>
-          </div>
-
-          <div class="block">
-            <h3>2. Escoge tus 3 ingredientes incluidos</h3>
-            <p class="helper">Selecciona hasta 3. Si quieres añadir más, se contarán como ingredientes adicionales.</p>
-
-            <div class="ingredients-grid">
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Manzana" />
-                <div class="ingredient-name">Manzana</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Zanahoria" />
-                <div class="ingredient-name">Zanahoria</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Limón" />
-                <div class="ingredient-name">Limón</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="China" />
-                <div class="ingredient-name">China</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Piña" />
-                <div class="ingredient-name">Piña</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Apio" />
-                <div class="ingredient-name">Apio</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Espinaca" />
-                <div class="ingredient-name">Espinaca</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="included-ingredient" value="Remolacha" />
-                <div class="ingredient-name">Remolacha</div>
-                <div class="ingredient-price">Incluido</div>
-              </label>
-            </div>
-
-            <div class="counter">
-              Seleccionados: <strong id="includedCount">0</strong> / 3
-            </div>
-          </div>
-
-          <div class="block" id="ingredientes">
-            <h3>3. Añade ingredientes adicionales</h3>
-            <p class="helper">Ingredientes adicionales desde +$2.</p>
-
-            <div class="ingredients-grid">
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Jengibre" data-price="3" />
-                <div class="ingredient-name">Jengibre</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $3</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Cúrcuma" data-price="3" />
-                <div class="ingredient-name">Cúrcuma</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $3</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Manzana" data-price="2" />
-                <div class="ingredient-name">Manzana</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $2</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Zanahoria" data-price="2" />
-                <div class="ingredient-name">Zanahoria</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $2</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Limón" data-price="2" />
-                <div class="ingredient-name">Limón</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $2</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="China" data-price="2" />
-                <div class="ingredient-name">China</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $2</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Piña" data-price="2" />
-                <div class="ingredient-name">Piña</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $2</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Apio" data-price="3" />
-                <div class="ingredient-name">Apio</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $3</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Espinaca" data-price="3" />
-                <div class="ingredient-name">Espinaca</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $3</div>
-              </label>
-
-              <label class="ingredient-option" data-ingredient-card>
-                <input type="checkbox" class="extra-ingredient" value="Remolacha" data-price="3" />
-                <div class="ingredient-name">Remolacha</div>
-                <div class="ingredient-price">Adicional</div>
-                <div class="ingredient-note">+ $3</div>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="summary-card" id="ordenar">
-          <h3>Resumen de tu orden</h3>
-
-          <div class="summary-box">
-            <div class="summary-row">
-              <span>Tamaño</span>
-              <span id="summarySize">12 oz</span>
-            </div>
-            <div class="summary-row">
-              <span>Precio base</span>
-              <span id="summaryBase">$12</span>
-            </div>
-            <div class="summary-row">
-              <span>Ingredientes incluidos</span>
-              <span id="summaryIncluded">Ninguno</span>
-            </div>
-            <div class="summary-row">
-              <span>Ingredientes adicionales</span>
-              <span id="summaryExtras">Ninguno</span>
-            </div>
-          </div>
-
-          <div class="summary-total">
-            <span>Total</span>
-            <span id="summaryTotal">$12</span>
-          </div>
-
-          <p class="notice">
-            Todos los tamaños incluyen 3 ingredientes.
-            Los ingredientes adicionales se suman automáticamente al total.
-          </p>
-
-          <a id="whatsappBtn" class="btn btn-primary" href="#" target="_blank" style="width:100%; margin-top:18px;">
-            Ordenar por WhatsApp
-          </a>
-
-          <ul class="mini-list">
-            <li>Personalizado a tu gusto</li>
-            <li>Hecho fresco</li>
-            <li>Ingredientes seleccionados por ti</li>
-          </ul>
-        </div>
+  <section>
+    <h2>Nuestros favoritos</h2>
+    <div class="products">
+      <div class="card">
+        <h3>Glow Verde</h3>
+        <p>Una mezcla fresca y ligera con un toque natural revitalizante.</p>
+        <div class="price">$8</div>
+      </div>
+      <div class="card">
+        <h3>Golden Boost</h3>
+        <p>Con jengibre, cúrcuma, limón y ese toque intenso que se siente bien.</p>
+        <div class="price">$8</div>
+      </div>
+      <div class="card">
+        <h3>Berry Power</h3>
+        <p>Frutal, vibrante y con un sabor más dulce y energético.</p>
+        <div class="price">$8</div>
+      </div>
+      <div class="card">
+        <h3>Tropical</h3>
+        <p>Una mezcla refrescante con ese sabor veraniego que encanta.</p>
+        <div class="price">$8</div>
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Tamaños de cajas</h2>
+    <div class="box-options">
+      <div class="card">
+        <h3>Caja de 4</h3>
+        <p>Perfecta para probar sabores.</p>
+      </div>
+      <div class="card">
+        <h3>Caja de 7</h3>
+        <p>Ideal para una semana.</p>
+      </div>
+      <div class="card">
+        <h3>Caja de 14</h3>
+        <p>Para tener variedad y más duración.</p>
+      </div>
+      <div class="card">
+        <h3>Caja de 30</h3>
+        <p>La opción grande para mantenerte abastecida.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ordena por WhatsApp</h2>
+    <div class="order-grid">
+
+      <div class="highlight">
+        <h3 style="text-align:center; margin-bottom:15px; color:#2f4f2f;">Opción 1: Escoge tus favoritos</h3>
+        <form onsubmit="sendFavorites(event)">
+          <input type="text" id="name1" placeholder="Tu nombre" required />
+          
+          <select id="size1" required>
+            <option value="">Escoge tamaño de caja</option>
+            <option value="Caja de 4">Caja de 4</option>
+            <option value="Caja de 7">Caja de 7</option>
+            <option value="Caja de 14">Caja de 14</option>
+            <option value="Caja de 30">Caja de 30</option>
+          </select>
+
+          <textarea id="flavors1" placeholder="Escribe los sabores que quieres. Ejemplo: 2 Glow Verde, 1 Tropical, 1 Golden Boost" required></textarea>
+
+          <select id="delivery1" required>
+            <option value="">Método de entrega</option>
+            <option value="Recogido en Montehiedra Mall">Recogido en Montehiedra Mall</option>
+            <option value="Envío por correo en Puerto Rico">Envío por correo en Puerto Rico</option>
+          </select>
+
+          <textarea id="notes1" placeholder="Notas adicionales (opcional)"></textarea>
+
+          <button type="submit">Enviar pedido por WhatsApp</button>
+        </form>
+      </div>
+
+      <div class="highlight">
+        <h3 style="text-align:center; margin-bottom:15px; color:#2f4f2f;">Opción 2: Arma tu caja</h3>
+        <form onsubmit="sendCustom(event)">
+          <input type="text" id="name2" placeholder="Tu nombre" required />
+
+          <select id="size2" required>
+            <option value="">Escoge tamaño de caja</option>
+            <option value="Caja de 4">Caja de 4</option>
+            <option value="Caja de 7">Caja de 7</option>
+            <option value="Caja de 14">Caja de 14</option>
+            <option value="Caja de 30">Caja de 30</option>
+          </select>
+
+          <textarea id="ingredients2" placeholder="Escribe los ingredientes o combinaciones que te gustaría. Ejemplo: jengibre, limón, china, zanahoria, cúrcuma..." required></textarea>
+
+          <select id="delivery2" required>
+            <option value="">Método de entrega</option>
+            <option value="Recogido en Montehiedra Mall">Recogido en Montehiedra Mall</option>
+            <option value="Envío por correo en Puerto Rico">Envío por correo en Puerto Rico</option>
+          </select>
+
+          <textarea id="notes2" placeholder="Notas adicionales (opcional)"></textarea>
+
+          <button type="submit">Enviar pedido personalizado</button>
+        </form>
+      </div>
+
+    </div>
+
+    <p class="small-text" style="text-align:center; margin-top:20px;">
+      Recogido local en Montehiedra Mall. Envíos disponibles en Puerto Rico.
+    </p>
+  </section>
+
+  <div class="footer-cta">
+    <a class="whatsapp-btn" href="https://wa.me/17874324865?text=Hola%2C%20quiero%20ordenar%20en%20La%20Poci%C3%B3n" target="_blank">
+      Escríbenos por WhatsApp
+    </a>
+  </div>
 
   <footer>
-    <div class="container">
-      La Poción ✨ · Jugos que se sienten bien
-    </div>
+    La Poción · Jugos que se sienten bien
   </footer>
 
   <script>
-    const WHATSAPP_NUMBER = "17874226548";
+    const phoneNumber = "17874324865";
 
-    const sizeCards = document.querySelectorAll("[data-size-card]");
-    const sizeInputs = document.querySelectorAll('input[name="size"]');
-    const includedInputs = document.querySelectorAll(".included-ingredient");
-    const extraInputs = document.querySelectorAll(".extra-ingredient");
+    function sendFavorites(event) {
+      event.preventDefault();
 
-    const includedCount = document.getElementById("includedCount");
-    const summarySize = document.getElementById("summarySize");
-    const summaryBase = document.getElementById("summaryBase");
-    const summaryIncluded = document.getElementById("summaryIncluded");
-    const summaryExtras = document.getElementById("summaryExtras");
-    const summaryTotal = document.getElementById("summaryTotal");
-    const whatsappBtn = document.getElementById("whatsappBtn");
+      const name = document.getElementById("name1").value;
+      const size = document.getElementById("size1").value;
+      const flavors = document.getElementById("flavors1").value;
+      const delivery = document.getElementById("delivery1").value;
+      const notes = document.getElementById("notes1").value;
 
-    function updateSizeCards() {
-      sizeCards.forEach(card => {
-        const input = card.querySelector('input[name="size"]');
-        card.classList.toggle("active", input.checked);
-      });
+      let message = `Hola, quiero ordenar en La Poción.%0A%0A`;
+      message += `*Opción:* Escoger favoritos%0A`;
+      message += `*Nombre:* ${name}%0A`;
+      message += `*Tamaño de caja:* ${size}%0A`;
+      message += `*Sabores seleccionados:* ${flavors}%0A`;
+      message += `*Entrega:* ${delivery}%0A`;
+
+      if (notes.trim() !== "") {
+        message += `*Notas:* ${notes}%0A`;
+      }
+
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
     }
 
-    function updateIngredientStyles() {
-      document.querySelectorAll("[data-ingredient-card]").forEach(card => {
-        const input = card.querySelector("input[type='checkbox']");
-        if (input && input.checked) {
-          card.classList.add("selected");
-        } else {
-          card.classList.remove("selected");
-        }
-      });
+    function sendCustom(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name2").value;
+      const size = document.getElementById("size2").value;
+      const ingredients = document.getElementById("ingredients2").value;
+      const delivery = document.getElementById("delivery2").value;
+      const notes = document.getElementById("notes2").value;
+
+      let message = `Hola, quiero ordenar en La Poción.%0A%0A`;
+      message += `*Opción:* Arma tu caja%0A`;
+      message += `*Nombre:* ${name}%0A`;
+      message += `*Tamaño de caja:* ${size}%0A`;
+      message += `*Ingredientes o combinaciones:* ${ingredients}%0A`;
+      message += `*Entrega:* ${delivery}%0A`;
+
+      if (notes.trim() !== "") {
+        message += `*Notas:* ${notes}%0A`;
+      }
+
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
     }
-
-    function getSelectedSize() {
-      const selected = document.querySelector('input[name="size"]:checked');
-      return {
-        name: selected.value,
-        price: Number(selected.dataset.price)
-      };
-    }
-
-    function getIncludedIngredients() {
-      return Array.from(includedInputs)
-        .filter(input => input.checked)
-        .map(input => input.value);
-    }
-
-    function getExtraIngredients() {
-      return Array.from(extraInputs)
-        .filter(input => input.checked)
-        .map(input => ({
-          name: input.value,
-          price: Number(input.dataset.price)
-        }));
-    }
-
-    function updateSummary() {
-      const size = getSelectedSize();
-      const included = getIncludedIngredients();
-      const extras = getExtraIngredients();
-
-      const extrasTotal = extras.reduce((sum, item) => sum + item.price, 0);
-      const total = size.price + extrasTotal;
-
-      summarySize.textContent = size.name;
-      summaryBase.textContent = `$${size.price}`;
-      summaryIncluded.textContent = included.length ? included.join(", ") : "Ninguno";
-      summaryExtras.textContent = extras.length
-        ? extras.map(item => `${item.name} (+$${item.price})`).join(", ")
-        : "Ninguno";
-      summaryTotal.textContent = `$${total}`;
-      includedCount.textContent = included.length;
-
-      const includedText = included.length ? included.join(", ") : "Ninguno";
-      const extrasText = extras.length
-        ? extras.map(item => `${item.name} (+$${item.price})`).join(", ")
-        : "Ninguno";
-
-      const message =
-`Hola! Quiero ordenar mi jugo de La Poción ✨
-
-Tamaño: ${size.name}
-Precio base: $${size.price}
-
-Ingredientes incluidos: ${includedText}
-Ingredientes adicionales: ${extrasText}
-
-Total: $${total}`;
-
-      whatsappBtn.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    }
-
-    includedInputs.forEach(input => {
-      input.addEventListener("change", () => {
-        const checkedIncluded = getIncludedIngredients();
-
-        if (checkedIncluded.length > 3) {
-          input.checked = false;
-          alert("Puedes escoger hasta 3 ingredientes incluidos.");
-        }
-
-        updateIngredientStyles();
-        updateSummary();
-      });
-    });
-
-    extraInputs.forEach(input => {
-      input.addEventListener("change", () => {
-        updateIngredientStyles();
-        updateSummary();
-      });
-    });
-
-    sizeInputs.forEach(input => {
-      input.addEventListener("change", () => {
-        updateSizeCards();
-        updateSummary();
-      });
-    });
-
-    updateSizeCards();
-    updateIngredientStyles();
-    updateSummary();
   </script>
+
 </body>
 </html>
